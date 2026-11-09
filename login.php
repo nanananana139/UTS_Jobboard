@@ -24,7 +24,7 @@ if (isset($_POST['login'])) {
         $_SESSION['nama'] = $data['nama'];
 
         // Redirect ke halaman utama JobListing
-        header("Location: index.html");
+        header("Location: index.php");
         exit;
 
     } else {
@@ -63,7 +63,7 @@ if (isset($_POST['login'])) {
             <div class="row align-items-center justify-content-between d-flex">
 
                 <div id="logo">
-                    <a href="index.html">
+                    <a href="index.php">
                         <img src="img/logo.png" alt="JobListing">
                     </a>
                 </div>
@@ -71,7 +71,7 @@ if (isset($_POST['login'])) {
                 <nav id="nav-menu-container">
                     <ul class="nav-menu">
                         <li>
-                            <a href="index.html">Home</a>
+                            <a href="index.php">Home</a>
                         </li>
 
                         <li>
