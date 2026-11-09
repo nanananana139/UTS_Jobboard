@@ -52,8 +52,8 @@
 								<li><a href="single.html">single</a></li>
 				            </ul>
 				          </li>
-				          <li><a class="ticker-btn" href="#">Signup</a></li>
-				          <li><a class="ticker-btn" href="#">Login</a></li>				          				          
+				          <li><a class="ticker-btn" href="register.php">Signup</a></li>
+				          <li><a class="ticker-btn" href="login.php">Login</a></li>				          				          
 				        </ul>
 				      </nav><!-- #nav-menu-container -->		    		
 			    	</div>
