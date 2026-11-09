@@ -1,907 +1,772 @@
-	<!DOCTYPE html>
-	<html lang="zxx" class="no-js">
-	<head>
-		<!-- Mobile Specific Meta -->
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<!-- Favicon-->
-		<link rel="shortcut icon" href="img/fav.png">
-		<!-- Author Meta -->
-		<meta name="author" content="codepixer">
-		<!-- Meta Description -->
-		<meta name="description" content="">
-		<!-- Meta Keyword -->
-		<meta name="keywords" content="">
-		<!-- meta character set -->
-		<meta charset="UTF-8">
-		<!-- Site Title -->
-		<title>Jobboard-Website Mencari Pekerjaan</title>
+<?php
+include 'koneksi.php';
 
-		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
-			<!--
-			CSS
-			============================================= -->
-			<link rel="stylesheet" href="css/linearicons.css">
-			<link rel="stylesheet" href="css/font-awesome.min.css">
-			<link rel="stylesheet" href="css/bootstrap.css">
-			<link rel="stylesheet" href="css/magnific-popup.css">
-			<link rel="stylesheet" href="css/nice-select.css">					
-			<link rel="stylesheet" href="css/animate.min.css">
-			<link rel="stylesheet" href="css/owl.carousel.css">
-			<link rel="stylesheet" href="css/main.css">
-		</head>
-		<body>
+// 6 lowongan terbaru yang masih dibuka
+$query = "SELECT * FROM jobs
+          WHERE status = 'Buka'
+          ORDER BY created_at DESC
+          LIMIT 6";
 
-			  <header id="header" id="home">
-			    <div class="container">
-			    	<div class="row align-items-center justify-content-between d-flex">
-				      <div id="logo">
-				        <a href="index.php"><img src="img/logo.png" alt="" title="" /></a>
-				      </div>
-				      <nav id="nav-menu-container">
-				        <ul class="nav-menu">
-				          <li class="menu-active"><a href="index.php">Home</a></li>
-				          <li><a href="about-us.php">About Us</a></li>
-				          <li><a href="category.php">Category</a></li>
-				          <li><a href="price.php">Price</a></li>
-				          <li><a href="blog-home.php">Blog</a></li>
-				          <li><a href="contact.php">Contact</a></li>
-				          <li class="menu-has-children"><a href="">Pages</a>
-				            <ul>
-								<li><a href="elements.php">elements</a></li>
-								<li><a href="search.php">search</a></li>
-								<li><a href="single.php">single</a></li>
-				            </ul>
-				          </li>
-				          <li><a class="ticker-btn" href="register.php">Signup</a></li>
-				          <li><a class="ticker-btn" href="login.php">Login</a></li>				          				          
-				        </ul>
-				      </nav><!-- #nav-menu-container -->		    		
-			    	</div>
-			    </div>
-			  </header><!-- #header -->
+$jobs_result = mysqli_query($conn, $query);
 
+if (!$jobs_result) {
+    die("Gagal mengambil data lowongan: " . mysqli_error($conn));
+}
 
-			<!-- start banner Area -->
-			<section class="banner-area relative" id="home">	
-				<div class="overlay overlay-bg"></div>
-				<div class="container">
-					<div class="row fullscreen d-flex align-items-center justify-content-center">
-						<div class="banner-content col-lg-12">
-							<h1 class="text-white">
-								<span>13.000+</span> Jobs posted last week!				
-							</h1>
-							<form action="search.php" method="GET" class="serach-form-area">
-								<div class="row justify-content-center form-wrap">
+// Lowongan berdasarkan lokasi
+$location_result = mysqli_query($conn, "
+    SELECT lokasi, COUNT(*) AS total
+    FROM jobs
+    WHERE status = 'Buka'
+    GROUP BY lokasi
+    ORDER BY total DESC
+    LIMIT 7
+");
 
-									<!-- Kolom pencarian -->
-									<div class="col-lg-3 form-cols">
-										<input type="text" class="form-control"
-											name="search"
-											placeholder="What are you looking for?">
-									</div>
+// Lowongan berdasarkan kategori
+$category_result = mysqli_query($conn, "
+    SELECT kategori, COUNT(*) AS total
+    FROM jobs
+    WHERE status = 'Buka'
+    GROUP BY kategori
+    ORDER BY total DESC
+    LIMIT 7
+");
 
-									<!-- Dropdown area -->
-									<div class="col-lg-2 form-cols">
-										<select class="form-control" name="lokasi">
-											<option value="">Select Area</option>
-											<option value="jakarta-pusat">Jakarta Pusat</option>
-											<option value="jakarta-utara">Jakarta Utara</option>
-											<option value="jakarta-barat">Jakarta Barat</option>
-											<option value="jakarta-selatan">Jakarta Selatan</option>
-											<option value="jakarta-timur">Jakarta Timur</option>
-											<option value="bogor">Bogor</option>
-											<option value="depok">Depok</option>
-											<option value="bekasi">Bekasi</option>
-											<option value="tangerang">Tangerang</option>
-											<option value="tangerang-selatan">Tangerang Selatan</option>
-											<option value="kabupaten-bogor">Kabupaten Bogor</option>
-											<option value="kabupaten-bekasi">Kabupaten Bekasi</option>
-											<option value="kabupaten-tangerang">Kabupaten Tangerang</option>
-										</select>
-									</div>
+// 3 lowongan terbaru untuk Featured Job Posts
+$top_jobs_result = mysqli_query($conn, "
+    SELECT * FROM jobs
+    WHERE status = 'Buka'
+    ORDER BY created_at DESC
+    LIMIT 3
+");
 
-									<!-- Dropdown kategori -->
-									<div class="col-lg-2 form-cols">
-										<select class="form-control" name="kategori">
-											<option value="">All Category</option>
-											<option value="technology">Technology & IT</option>
-											<option value="business">Business & Management</option>
-											<option value="administration">Administration & Office</option>
-											<option value="finance">Finance & Accounting</option>
-											<option value="marketing">Marketing</option>
-											<option value="sales">Sales</option>
-											<option value="human-resources">Human Resources (HR)</option>
-											<option value="design">Design & Creative</option>
-											<option value="development">Software Development</option>
-											<option value="customer-service">Customer Service</option>
-											<option value="education">Education & Training</option>
-											<option value="healthcare">Healthcare & Medical</option>
-											<option value="engineering">Engineering</option>
-											<option value="manufacturing">Manufacturing & Production</option>
-											<option value="logistics">Logistics & Supply Chain</option>
-											<option value="warehouse">Warehouse & Inventory</option>
-											<option value="construction">Construction & Property</option>
-											<option value="hospitality">Hospitality & Tourism</option>
-											<option value="food-beverage">Food & Beverage</option>
-											<option value="retail">Retail & Merchandising</option>
-											<option value="transportation">Transportation & Driver</option>
-											<option value="legal">Legal</option>
-											<option value="media">Media & Communication</option>
-											<option value="content-creator">Content Creator</option>
-											<option value="security">Security</option>
-											<option value="cleaning">Cleaning & Maintenance</option>
-											<option value="freelance">Freelance & Remote</option>
-											<option value="internship">Internship</option>
-											<option value="other">Other</option>
-										</select>
-									</div>
+if (!$location_result || !$category_result || !$top_jobs_result) {
+    die("Gagal mengambil data tambahan: " . mysqli_error($conn));
+}
+?>
 
-									<!-- Dropdown Job Type -->
-									<div class="col-lg-2 form-cols">
-										<select class="form-control" name="tipe">
-											<option value="">All Job Types</option>
-											<option value="full-time">Full Time</option>
-											<option value="part-time">Part Time</option>
-											<option value="contract">Contract</option>
-											<option value="internship">Internship</option>
-											<option value="freelance">Freelance</option>
-										</select>
-									</div>
+<!DOCTYPE html>
+<html lang="id" class="no-js">
 
-									<!-- Dropdown range gaji -->
-									<div class="col-lg-2 form-cols">
-										<select class="form-control" name="gaji">
-											<option value="">Salary Range</option>
-											<option value="0-1000000">Rp 0 - Rp 1.000.000</option>
-											<option value="1000000-3000000">Rp 1.000.000 - Rp 3.000.000</option>
-											<option value="3000000-5000000">Rp 3.000.000 - Rp 5.000.000</option>
-											<option value="5000000-10000000">Rp 5.000.000 - Rp 10.000.000</option>
-											<option value="10000000-20000000">Rp 10.000.000 - Rp 20.000.000</option>
-											<option value="20000000+">Rp 20.000.000+</option>
-										</select>
-									</div>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="img/fav.png">
 
-									<!-- Tombol Search -->
-									<div class="col-lg-1 form-cols">
-										<button type="submit" class="btn btn-info">
-											<span class="lnr lnr-magnifier"></span> Search
-										</button>
-									</div>
+    <meta name="author" content="Jobboard">
+    <meta name="description" content="Website pencarian lowongan pekerjaan Jabodetabek">
+    <meta name="keywords" content="lowongan kerja, Jabodetabek, pekerjaan">
+    <meta charset="UTF-8">
 
-								</div>
-							</form>
-							<p class="text-white"> <span>Search by tags:</span> Tecnology, Business, Consulting, IT Company, Design, Development</p>
-						</div>											
-					</div>
-				</div>
-			</section>
-			<!-- End banner Area -->	
+    <title>Jobboard - Website Mencari Pekerjaan</title>
 
-			<!-- Start features Area -->
-			<section class="features-area">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-3 col-md-6">
-							<div class="single-feature">
-								<h4>Searching</h4>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing.
-								</p>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-6">
-							<div class="single-feature">
-								<h4>Applying</h4>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing.
-								</p>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-6">
-							<div class="single-feature">
-								<h4>Security</h4>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing.
-								</p>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-6">
-							<div class="single-feature">
-								<h4>Notifications</h4>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing.
-								</p>
-							</div>
-						</div>																		
-					</div>
-				</div>	
-			</section>
-			<!-- End features Area -->
-			
-			<!-- Start popular-post Area -->
-			<section class="popular-post-area pt-100">
-				<div class="container">
-					<div class="row align-items-center">
-						<div class="active-popular-post-carusel">
-							<div class="single-popular-post d-flex flex-row">
-								<div class="thumb">
-									<img class="img-fluid" src="img/p1.png" alt="">
-									<a class="btns text-uppercase" href="#">view job post</a>
-								</div>
-								<div class="details">
-									<a href="#"><h4>Creative Designer</h4></a>
-									<h6>Los Angeles</h6>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis.
-									</p>
-								</div>
-							</div>	
-							<div class="single-popular-post d-flex flex-row">
-								<div class="thumb">
-									<img src="img/p2.png" alt="">
-									<a class="btns text-uppercase" href="#">view job post</a>
-								</div>
-								<div class="details">
-									<a href="#"><h4>Creative Designer</h4></a>
-									<h6>Los Angeles</h6>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis.
-									</p>
-								</div>
-							</div>
-							<div class="single-popular-post d-flex flex-row">
-								<div class="thumb">
-									<img src="img/p1.png" alt="">
-									<a class="btns text-uppercase" href="#">view job post</a>
-								</div>
-								<div class="details">
-									<a href="#"><h4>Creative Designer</h4></a>
-									<h6>Los Angeles</h6>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis.
-									</p>
-								</div>
-							</div>	
-							<div class="single-popular-post d-flex flex-row">
-								<div class="thumb">
-									<img src="img/p2.png" alt="">
-									<a class="btns text-uppercase" href="#">view job post</a>
-								</div>
-								<div class="details">
-									<a href="#"><h4>Creative Designer</h4></a>
-									<h6>Los Angeles</h6>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis.
-									</p>
-								</div>
-							</div>	
-							<div class="single-popular-post d-flex flex-row">
-								<div class="thumb">
-									<img src="img/p1.png" alt="">
-									<a class="btns text-uppercase" href="#">view job post</a>
-								</div>
-								<div class="details">
-									<a href="#"><h4>Creative Designer</h4></a>
-									<h6>Los Angeles</h6>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis.
-									</p>
-								</div>
-							</div>	
-							<div class="single-popular-post d-flex flex-row">
-								<div class="thumb">
-									<img src="img/p2.png" alt="">
-									<a class="btns text-uppercase" href="#">view job post</a>
-								</div>
-								<div class="details">
-									<a href="#"><h4>Creative Designer</h4></a>
-									<h6>Los Angeles</h6>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis.
-									</p>
-								</div>
-							</div>																																							
-						</div>
-					</div>
-				</div>	
-			</section>
-			<!-- End popular-post Area -->
-			
-			<!-- Start feature-cat Area -->
-			<section class="feature-cat-area pt-100" id="category">
-				<div class="container">
-					<div class="row d-flex justify-content-center">
-						<div class="menu-content pb-60 col-lg-10">
-							<div class="title text-center">
-								<h1 class="mb-10">Featured Job Categories</h1>
-								<p>Who are in extremely love with eco friendly system.</p>
-							</div>
-						</div>
-					</div>						
-					<div class="row">
-						<div class="col-lg-2 col-md-4 col-sm-6">
-							<div class="single-fcat">
-								<a href="category.php">
-									<img src="img/o1.png" alt="">
-								</a>
-								<p>Accounting</p>
-							</div>
-						</div>
-						<div class="col-lg-2 col-md-4 col-sm-6">
-							<div class="single-fcat">
-								<a href="category.php">
-									<img src="img/o2.png" alt="">
-								</a>
-								<p>Development</p>
-							</div>
-						</div>
-						<div class="col-lg-2 col-md-4 col-sm-6">
-							<div class="single-fcat">
-								<a href="category.php">
-									<img src="img/o3.png" alt="">
-								</a>
-								<p>Technology</p>
-							</div>
-						</div>
-						<div class="col-lg-2 col-md-4 col-sm-6">
-							<div class="single-fcat">
-								<a href="category.php">
-									<img src="img/o4.png" alt="">
-								</a>
-								<p>Media & News</p>
-							</div>
-						</div>
-						<div class="col-lg-2 col-md-4 col-sm-6">
-							<div class="single-fcat">
-								<a href="category.php">
-									<img src="img/o5.png" alt="">
-								</a>
-								<p>Medical</p>
-							</div>
-						</div>
-						<div class="col-lg-2 col-md-4 col-sm-6">
-							<div class="single-fcat">
-								<a href="category.php">
-									<img src="img/o6.png" alt="">
-								</a>
-								<p>Goverment</p>
-							</div>			
-						</div>																											
-					</div>
-				</div>	
-			</section>
-			<!-- End feature-cat Area -->
-			
-			<!-- Start post Area -->
-			<section class="post-area section-gap">
-				<div class="container">
-					<div class="row justify-content-center d-flex">
-						<div class="col-lg-8 post-list">
-							<ul class="cat-list">
-								<li><a href="#">Recent</a></li>
-								<li><a href="#">Full Time</a></li>
-								<li><a href="#">Intern</a></li>
-								<li><a href="#">part Time</a></li>
-							</ul>
-							<div class="single-post d-flex flex-row">
-								<div class="thumb">
-									<img src="img/post.png" alt="">
-									<ul class="tags">
-										<li>
-											<a href="#">Art</a>
-										</li>
-										<li>
-											<a href="#">Media</a>
-										</li>
-										<li>
-											<a href="#">Design</a>					
-										</li>
-									</ul>
-								</div>
-								<div class="details">
-									<div class="title d-flex flex-row justify-content-between">
-										<div class="titles">
-											<a href="single.php"><h4>Creative Art Designer</h4></a>
-											<h6>Premium Labels Limited</h6>					
-										</div>
-										<ul class="btns">
-											<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-											<li><a href="#">Apply</a></li>
-										</ul>
-									</div>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
-									</p>
-									<h5>Job Nature: Full time</h5>
-									<p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-									<p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
-								</div>
-							</div>
-							<div class="single-post d-flex flex-row">
-								<div class="thumb">
-									<img src="img/post.png" alt="">
-									<ul class="tags">
-										<li>
-											<a href="#">Art</a>
-										</li>
-										<li>
-											<a href="#">Media</a>
-										</li>
-										<li>
-											<a href="#">Design</a>					
-										</li>
-									</ul>
-								</div>
-								<div class="details">
-									<div class="title d-flex flex-row justify-content-between">
-										<div class="titles">
-											<a href="single.php"><h4>Creative Art Designer</h4></a>
-											<h6>Premium Labels Limited</h6>					
-										</div>
-										<ul class="btns">
-											<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-											<li><a href="#">Apply</a></li>
-										</ul>
-									</div>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
-									</p>
-									<h5>Job Nature: Full time</h5>
-									<p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-									<p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
-								</div>
-							</div>
-							<div class="single-post d-flex flex-row">
-								<div class="thumb">
-									<img src="img/post.png" alt="">
-									<ul class="tags">
-										<li>
-											<a href="#">Art</a>
-										</li>
-										<li>
-											<a href="#">Media</a>
-										</li>
-										<li>
-											<a href="#">Design</a>					
-										</li>
-									</ul>
-								</div>
-								<div class="details">
-									<div class="title d-flex flex-row justify-content-between">
-										<div class="titles">
-											<a href="single.php"><h4>Creative Art Designer</h4></a>
-											<h6>Premium Labels Limited</h6>					
-										</div>
-										<ul class="btns">
-											<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-											<li><a href="#">Apply</a></li>
-										</ul>
-									</div>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
-									</p>
-									<h5>Job Nature: Full time</h5>
-									<p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-									<p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
-								</div>
-							</div>		
-							<div class="single-post d-flex flex-row">
-								<div class="thumb">
-									<img src="img/post.png" alt="">
-									<ul class="tags">
-										<li>
-											<a href="#">Art</a>
-										</li>
-										<li>
-											<a href="#">Media</a>
-										</li>
-										<li>
-											<a href="#">Design</a>					
-										</li>
-									</ul>
-								</div>
-								<div class="details">
-									<div class="title d-flex flex-row justify-content-between">
-										<div class="titles">
-											<a href="single.php"><h4>Creative Art Designer</h4></a>
-											<h6>Premium Labels Limited</h6>					
-										</div>
-										<ul class="btns">
-											<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-											<li><a href="#">Apply</a></li>
-										</ul>
-									</div>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
-									</p>
-									<h5>Job Nature: Full time</h5>
-									<p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-									<p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
-								</div>
-							</div>
-							<div class="single-post d-flex flex-row">
-								<div class="thumb">
-									<img src="img/post.png" alt="">
-									<ul class="tags">
-										<li>
-											<a href="#">Art</a>
-										</li>
-										<li>
-											<a href="#">Media</a>
-										</li>
-										<li>
-											<a href="#">Design</a>					
-										</li>
-									</ul>
-								</div>
-								<div class="details">
-									<div class="title d-flex flex-row justify-content-between">
-										<div class="titles">
-											<a href="single.php"><h4>Creative Art Designer</h4></a>
-											<h6>Premium Labels Limited</h6>					
-										</div>
-										<ul class="btns">
-											<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-											<li><a href="#">Apply</a></li>
-										</ul>
-									</div>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
-									</p>
-									<h5>Job Nature: Full time</h5>
-									<p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-									<p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
-								</div>
-							</div>
-							<div class="single-post d-flex flex-row">
-								<div class="thumb">
-									<img src="img/post.png" alt="">
-									<ul class="tags">
-										<li>
-											<a href="#">Art</a>
-										</li>
-										<li>
-											<a href="#">Media</a>
-										</li>
-										<li>
-											<a href="#">Design</a>					
-										</li>
-									</ul>
-								</div>
-								<div class="details">
-									<div class="title d-flex flex-row justify-content-between">
-										<div class="titles">
-											<a href="single.php"><h4>Creative Art Designer</h4></a>
-											<h6>Premium Labels Limited</h6>					
-										</div>
-										<ul class="btns">
-											<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-											<li><a href="#">Apply</a></li>
-										</ul>
-									</div>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
-									</p>
-									<h5>Job Nature: Full time</h5>
-									<p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-									<p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
-								</div>
-							</div>															
-							<div class="single-post d-flex flex-row">
-								<div class="thumb">
-									<img src="img/post.png" alt="">
-									<ul class="tags">
-										<li>
-											<a href="#">Art</a>
-										</li>
-										<li>
-											<a href="#">Media</a>
-										</li>
-										<li>
-											<a href="#">Design</a>					
-										</li>
-									</ul>
-								</div>
-								<div class="details">
-									<div class="title d-flex flex-row justify-content-between">
-										<div class="titles">
-											<a href="single.php"><h4>Creative Art Designer</h4></a>
-											<h6>Premium Labels Limited</h6>					
-										</div>
-										<ul class="btns">
-											<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
-											<li><a href="#">Apply</a></li>
-										</ul>
-									</div>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
-									</p>
-									<h5>Job Nature: Full time</h5>
-									<p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-									<p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
-								</div>
-							</div>	
-							
-							<a class="text-uppercase loadmore-btn mx-auto d-block" href="category.php">Load More job Posts</a>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
 
-						</div>
-						<div class="col-lg-4 sidebar">
-							<div class="single-slidebar">
-								<h4>Jobs by Location</h4>
-								<ul class="cat-list">
-									<li><a class="justify-content-between d-flex" href="category.php"><p>New York</p><span>37</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Park Montana</p><span>57</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Atlanta</p><span>33</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Arizona</p><span>36</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Florida</p><span>47</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Rocky Beach</p><span>27</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Chicago</p><span>17</span></a></li>
-								</ul>
-							</div>
+    <link rel="stylesheet" href="css/linearicons.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/nice-select.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
 
-							<div class="single-slidebar">
-								<h4>Top rated job posts</h4>
-								<div class="active-relatedjob-carusel">
-									<div class="single-rated">
-										<img class="img-fluid" src="img/r1.jpg" alt="">
-										<a href="single.php"><h4>Creative Art Designer</h4></a>
-										<h6>Premium Labels Limited</h6>
-										<p>
-											Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
-										</p>
-										<h5>Job Nature: Full time</h5>
-										<p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-										<p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
-										<a href="#" class="btns text-uppercase">Apply job</a>
-									</div>
-									<div class="single-rated">
-										<img class="img-fluid" src="img/r1.jpg" alt="">
-										<a href="single.php"><h4>Creative Art Designer</h4></a>
-										<h6>Premium Labels Limited</h6>
-										<p>
-											Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
-										</p>
-										<h5>Job Nature: Full time</h5>
-										<p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-										<p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
-										<a href="#" class="btns text-uppercase">Apply job</a>
-									</div>
-									<div class="single-rated">
-										<img class="img-fluid" src="img/r1.jpg" alt="">
-										<a href="single.php"><h4>Creative Art Designer</h4></a>
-										<h6>Premium Labels Limited</h6>
-										<p>
-											Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
-										</p>
-										<h5>Job Nature: Full time</h5>
-										<p class="address"><span class="lnr lnr-map"></span> 56/8, Panthapath Dhanmondi Dhaka</p>
-										<p class="address"><span class="lnr lnr-database"></span> 15k - 25k</p>
-										<a href="#" class="btns text-uppercase">Apply job</a>
-									</div>																		
-								</div>
-							</div>							
+<body>
 
-							<div class="single-slidebar">
-								<h4>Jobs by Category</h4>
-								<ul class="cat-list">
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Technology</p><span>37</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Media & News</p><span>57</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Goverment</p><span>33</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Medical</p><span>36</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Restaurants</p><span>47</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Developer</p><span>27</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Accounting</p><span>17</span></a></li>
-								</ul>
-							</div>
+<!-- HEADER -->
+<header id="header">
+    <div class="container">
+        <div class="row align-items-center justify-content-between d-flex">
 
-							<div class="single-slidebar">
-								<h4>Carrer Advice Blog</h4>
-								<div class="blog-list">
-									<div class="single-blog " style="background:#000 url(img/blog1.jpg);">
-										<a href="single.php"><h4>Home Audio Recording <br>
-										For Everyone</h4></a>
-										<div class="meta justify-content-between d-flex">
-											<p>
-												02 Hours ago
-											</p>
-											<p>
-												<span class="lnr lnr-heart"></span>
-												06
-												 <span class="lnr lnr-bubble"></span>
-												02
-											</p>
-										</div>
-									</div>
-									<div class="single-blog " style="background:#000 url(img/blog2.jpg);">
-										<a href="single.php"><h4>Home Audio Recording <br>
-										For Everyone</h4></a>
-										<div class="meta justify-content-between d-flex">
-											<p>
-												02 Hours ago
-											</p>
-											<p>
-												<span class="lnr lnr-heart"></span>
-												06
-												 <span class="lnr lnr-bubble"></span>
-												02
-											</p>
-										</div>
-									</div>
-									<div class="single-blog " style="background:#000 url(img/blog1.jpg);">
-										<a href="single.php"><h4>Home Audio Recording <br>
-										For Everyone</h4></a>
-										<div class="meta justify-content-between d-flex">
-											<p>
-												02 Hours ago
-											</p>
-											<p>
-												<span class="lnr lnr-heart"></span>
-												06
-												 <span class="lnr lnr-bubble"></span>
-												02
-											</p>
-										</div>
-									</div>																		
-								</div>
-							</div>							
+            <div id="logo">
+                <a href="index.php">
+                    <img src="img/logo.png" alt="Jobboard">
+                </a>
+            </div>
 
-						</div>
-					</div>
-				</div>	
-			</section>
-			<!-- End post Area -->
-				
+            <nav id="nav-menu-container">
+                <ul class="nav-menu">
+                    <li class="menu-active">
+                        <a href="index.php">Home</a>
+                    </li>
 
-			<!-- Start callto-action Area -->
-			<section class="callto-action-area section-gap" id="join">
-				<div class="container">
-					<div class="row d-flex justify-content-center">
-						<div class="menu-content col-lg-9">
-							<div class="title text-center">
-								<h1 class="mb-10 text-white">Join us today without any hesitation</h1>
-								<p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-								<a class="primary-btn" href="#">I am a Candidate</a>
-								<a class="primary-btn" href="#">Request Free Demo</a>
-							</div>
-						</div>
-					</div>	
-				</div>	
-			</section>
-			<!-- End calto-action Area -->
+                    <li>
+                        <a href="about-us.php">About Us</a>
+                    </li>
 
-			<!-- Start download Area -->
-			<section class="download-area section-gap" id="app">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6 download-left">
-							<img class="img-fluid" src="img/d1.png" alt="">
-						</div>
-						<div class="col-lg-6 download-right">
-							<h1>Download the <br>
-							Jobboard App Today!</h1>
-							<p class="subs">
-								It won’t be a bigger problem to find one video game lover in your neighbor. Since the introduction of Virtual Game, it has been achieving great heights so far as its popularity and technological advancement are concerned.
-							</p>
-							<div class="d-flex flex-row">
-								<div class="buttons">
-									<i class="fa fa-apple" aria-hidden="true"></i>
-									<div class="desc">
-										<a href="#">
-											<p>
-												<span>Available</span> <br>
-												on App Store
-											</p>
-										</a>
-									</div>
-								</div>
-								<div class="buttons">
-									<i class="fa fa-android" aria-hidden="true"></i>
-									<div class="desc">
-										<a href="#">
-											<p>
-												<span>Available</span> <br>
-												on Play Store
-											</p>
-										</a>
-									</div>
-								</div>									
-							</div>						
-						</div>
-					</div>
-				</div>	
-			</section>
-			<!-- End download Area -->
-		
-			<!-- start footer Area -->		
-			<footer class="footer-area section-gap">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-3  col-md-12">
-							<div class="single-footer-widget">
-								<h6>Top Products</h6>
-								<ul class="footer-nav">
-									<li><a href="#">Managed Website</a></li>
-									<li><a href="#">Manage Reputation</a></li>
-									<li><a href="#">Power Tools</a></li>
-									<li><a href="#">Marketing Service</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-lg-6  col-md-12">
-							<div class="single-footer-widget newsletter">
-								<h6>Newsletter</h6>
-								<p>You can trust us. we only send promo offers, not a single spam.</p>
-								<div id="mc_embed_signup">
-									<form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="form-inline">
+                    <li>
+                        <a href="category.php">Category</a>
+                    </li>
 
-										<div class="form-group row" style="width: 100%">
-											<div class="col-lg-8 col-md-12">
-												<input name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '" required="" type="email">
-												<div style="position: absolute; left: -5000px;">
-													<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
-												</div>
-											</div> 
-										
-											<div class="col-lg-4 col-md-12">
-												<button class="nw-btn primary-btn">Subscribe<span class="lnr lnr-arrow-right"></span></button>
-											</div> 
-										</div>		
-										<div class="info"></div>
-									</form>
-								</div>		
-							</div>
-						</div>
-						<div class="col-lg-3  col-md-12">
-							<div class="single-footer-widget mail-chimp">
-								<h6 class="mb-20">Instragram Feed</h6>
-								<ul class="instafeed d-flex flex-wrap">
-									<li><img src="img/i1.jpg" alt=""></li>
-									<li><img src="img/i2.jpg" alt=""></li>
-									<li><img src="img/i3.jpg" alt=""></li>
-									<li><img src="img/i4.jpg" alt=""></li>
-									<li><img src="img/i5.jpg" alt=""></li>
-									<li><img src="img/i6.jpg" alt=""></li>
-									<li><img src="img/i7.jpg" alt=""></li>
-									<li><img src="img/i8.jpg" alt=""></li>
-								</ul>
-							</div>
-						</div>						
-					</div>
+                    <li>
+                        <a href="blog-home.php">Blog</a>
+                    </li>
 
-					<div class="row footer-bottom d-flex justify-content-between">
-						<p class="col-lg-8 col-sm-12 footer-text m-0 text-white">
-							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						</p>
-						<div class="col-lg-4 col-sm-12 footer-social">
-							<a href="#"><i class="fa fa-facebook"></i></a>
-							<a href="#"><i class="fa fa-twitter"></i></a>
-							<a href="#"><i class="fa fa-dribbble"></i></a>
-							<a href="#"><i class="fa fa-behance"></i></a>
-						</div>
-					</div>
-				</div>
-			</footer>
-			<!-- End footer Area -->		
+                    <li>
+                        <a href="search.php">Search</a>
+                    </li>
 
-			<script src="js/vendor/jquery-2.2.4.min.js"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-			<script src="js/vendor/bootstrap.min.js"></script>			
-			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-  			<script src="js/easing.min.js"></script>			
-			<script src="js/hoverIntent.js"></script>
-			<script src="js/superfish.min.js"></script>	
-			<script src="js/jquery.ajaxchimp.min.js"></script>
-			<script src="js/jquery.magnific-popup.min.js"></script>	
-			<script src="js/owl.carousel.min.js"></script>			
-			<script src="js/jquery.sticky.js"></script>
-			<script src="js/jquery.nice-select.min.js"></script>			
-			<script src="js/parallax.min.js"></script>		
-			<script src="js/mail-script.js"></script>	
-			<script src="js/main.js"></script>	
-		</body>
-	</html>
+                    <li>
+                        <a href="register.php" class="ticker-btn">Signup</a>
+                    </li>
+
+                    <li>
+                        <a href="login.php" class="ticker-btn">Login</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+</header>
 
 
+<!-- BANNER / SEARCH -->
+<section class="banner-area relative" id="home">
+    <div class="overlay overlay-bg"></div>
 
+    <div class="container">
+        <div class="row fullscreen d-flex align-items-center justify-content-center">
+
+            <div class="banner-content col-lg-12">
+
+                <h1 class="text-white">
+                    <span>Let's Go!</span>
+                    Temukan Pekerjaan yang Sesuai dengan Keinginanmu di
+                    <span>Jabodetabek</span>!!
+                </h1>
+
+                <form action="search.php" method="GET" class="serach-form-area">
+
+                    <div class="row justify-content-center form-wrap">
+
+                        <div class="col-lg-3 form-cols">
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="search"
+                                placeholder="What are you looking for?"
+                            >
+                        </div>
+
+                        <div class="col-lg-2 form-cols">
+                            <select class="form-control" name="lokasi">
+                                <option value="">Select Area</option>
+                                <option value="jakarta-pusat">Jakarta Pusat</option>
+                                <option value="jakarta-utara">Jakarta Utara</option>
+                                <option value="jakarta-barat">Jakarta Barat</option>
+                                <option value="jakarta-selatan">Jakarta Selatan</option>
+                                <option value="jakarta-timur">Jakarta Timur</option>
+                                <option value="bogor">Bogor</option>
+                                <option value="depok">Depok</option>
+                                <option value="bekasi">Bekasi</option>
+                                <option value="tangerang">Tangerang</option>
+                                <option value="tangerang-selatan">Tangerang Selatan</option>
+                                <option value="kabupaten-bogor">Kabupaten Bogor</option>
+                                <option value="kabupaten-bekasi">Kabupaten Bekasi</option>
+                                <option value="kabupaten-tangerang">Kabupaten Tangerang</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-2 form-cols">
+                            <select class="form-control" name="kategori">
+                                <option value="">All Category</option>
+                                <option value="technology">Technology & IT</option>
+                                <option value="business">Business & Management</option>
+                                <option value="administration">Administration & Office</option>
+                                <option value="finance">Finance & Accounting</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="sales">Sales</option>
+                                <option value="human-resources">Human Resources (HR)</option>
+                                <option value="design">Design & Creative</option>
+                                <option value="development">Software Development</option>
+                                <option value="customer-service">Customer Service</option>
+                                <option value="education">Education & Training</option>
+                                <option value="healthcare">Healthcare & Medical</option>
+                                <option value="engineering">Engineering</option>
+                                <option value="manufacturing">Manufacturing & Production</option>
+                                <option value="logistics">Logistics & Supply Chain</option>
+                                <option value="warehouse">Warehouse & Inventory</option>
+                                <option value="construction">Construction & Property</option>
+                                <option value="hospitality">Hospitality & Tourism</option>
+                                <option value="food-beverage">Food & Beverage</option>
+                                <option value="retail">Retail & Merchandising</option>
+                                <option value="transportation">Transportation & Driver</option>
+                                <option value="legal">Legal</option>
+                                <option value="media">Media & Communication</option>
+                                <option value="content-creator">Content Creator</option>
+                                <option value="security">Security</option>
+                                <option value="cleaning">Cleaning & Maintenance</option>
+                                <option value="freelance">Freelance & Remote</option>
+                                <option value="internship">Internship</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-2 form-cols">
+                            <select class="form-control" name="tipe">
+                                <option value="">All Job Types</option>
+                                <option value="full-time">Full Time</option>
+                                <option value="part-time">Part Time</option>
+                                <option value="contract">Contract</option>
+                                <option value="internship">Internship</option>
+                                <option value="freelance">Freelance</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-2 form-cols">
+                            <select class="form-control" name="gaji">
+                                <option value="">Salary Range</option>
+                                <option value="0-1000000">Rp 0 - Rp 1.000.000</option>
+                                <option value="1000000-3000000">Rp 1.000.000 - Rp 3.000.000</option>
+                                <option value="3000000-5000000">Rp 3.000.000 - Rp 5.000.000</option>
+                                <option value="5000000-10000000">Rp 5.000.000 - Rp 10.000.000</option>
+                                <option value="10000000-20000000">Rp 10.000.000 - Rp 20.000.000</option>
+                                <option value="20000000+">Rp 20.000.000+</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-1 form-cols">
+                            <button type="submit" class="btn btn-info">
+                                <span class="lnr lnr-magnifier"></span>
+                                Search
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+
+                <p class="text-white">
+                    <span>Search by tags:</span>
+                    Technology & IT, Business & Management, Administration & Office,
+                    Finance & Accounting, Marketing, Design & Creative,
+                    Software Development
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- FEATURES -->
+<section class="features-area">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-3 col-md-6">
+                <div class="single-feature">
+                    <h4>Find Jobs</h4>
+                    <p>Temukan berbagai lowongan pekerjaan sesuai minat dan kemampuanmu di wilayah Jabodetabek.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="single-feature">
+                    <h4>Easy Applying</h4>
+                    <p>Ajukan lamaran pekerjaan dengan mudah dan praktis melalui platform kami.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="single-feature">
+                    <h4>Trusted Jobs</h4>
+                    <p>Dapatkan informasi lowongan kerja dari berbagai perusahaan dan bidang pekerjaan.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="single-feature">
+                    <h4>Career Growth</h4>
+                    <p>Temukan kesempatan untuk mengembangkan kemampuan dan membangun karier.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- FEATURED JOB CATEGORIES -->
+<section class="feature-cat-area pt-100" id="category">
+    <div class="container">
+
+        <div class="row d-flex justify-content-center">
+            <div class="menu-content pb-60 col-lg-10">
+                <div class="title text-center">
+                    <h1 class="mb-10">Featured Job Categories</h1>
+                    <p>Temukan pekerjaan dari berbagai bidang.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <?php
+            $featured_categories = [
+                'finance' => ['Accounting', 'o1.png'],
+                'development' => ['Development', 'o2.png'],
+                'technology' => ['Technology', 'o3.png'],
+                'media' => ['Media & News', 'o4.png'],
+                'healthcare' => ['Medical', 'o5.png'],
+                'government' => ['Government', 'o6.png']
+            ];
+
+            foreach ($featured_categories as $slug => $item):
+            ?>
+
+                <div class="col-lg-2 col-md-4 col-sm-6">
+                    <div class="single-fcat">
+
+                        <a href="category.php?kategori=<?php echo urlencode($slug); ?>">
+                            <img src="img/<?php echo htmlspecialchars($item[1]); ?>" alt="">
+                        </a>
+
+                        <p><?php echo htmlspecialchars($item[0]); ?></p>
+
+                    </div>
+                </div>
+
+            <?php endforeach; ?>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- POST AREA -->
+<section class="post-area section-gap">
+    <div class="container">
+
+        <div class="row justify-content-center d-flex">
+
+            <!-- DAFTAR LOWONGAN -->
+            <div class="col-lg-8 post-list">
+
+                <ul class="cat-list">
+                    <li><a href="search.php">Recent</a></li>
+                    <li><a href="search.php?tipe=full-time">Full Time</a></li>
+                    <li><a href="search.php?tipe=internship">Intern</a></li>
+                    <li><a href="search.php?tipe=part-time">Part Time</a></li>
+                </ul>
+
+                <h3 class="mb-20">Lowongan Pekerjaan Terbaru</h3>
+
+                <?php if (mysqli_num_rows($jobs_result) > 0): ?>
+
+                    <?php while ($job = mysqli_fetch_assoc($jobs_result)): ?>
+
+                        <div class="single-post d-flex flex-row">
+
+                            <div class="thumb">
+                                <img src="img/post.png" alt="Job">
+
+                                <ul class="tags">
+                                    <li>
+                                        <a href="category.php?kategori=<?php echo urlencode($job['kategori']); ?>">
+                                            <?php echo htmlspecialchars($job['kategori']); ?>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="details">
+
+                                <div class="title d-flex flex-row justify-content-between">
+
+                                    <div class="titles">
+                                        <a href="single.php?id=<?php echo (int) $job['id']; ?>">
+                                            <h4><?php echo htmlspecialchars($job['judul_posisi']); ?></h4>
+                                        </a>
+
+                                        <h6><?php echo htmlspecialchars($job['nama_perusahaan']); ?></h6>
+                                    </div>
+
+                                    <ul class="btns">
+                                        <li>
+                                            <a href="single.php?id=<?php echo (int) $job['id']; ?>">
+                                                Detail
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                                <p>
+                                    <?php echo htmlspecialchars($job['deskripsi']); ?>
+                                </p>
+
+                                <h5>
+                                    Job Nature:
+                                    <?php echo htmlspecialchars($job['tipe']); ?>
+                                </h5>
+
+                                <p class="address">
+                                    <span class="lnr lnr-map"></span>
+                                    <?php echo htmlspecialchars($job['lokasi']); ?>
+                                </p>
+
+                                <p class="address">
+                                    <span class="lnr lnr-database"></span>
+                                    Rp<?php echo number_format($job['gaji_min'], 0, ',', '.'); ?>
+                                    -
+                                    Rp<?php echo number_format($job['gaji_max'], 0, ',', '.'); ?>
+                                    / Bulan
+                                </p>
+
+                            </div>
+                        </div>
+
+                    <?php endwhile; ?>
+
+                <?php else: ?>
+
+                    <p>Belum ada lowongan pekerjaan yang tersedia.</p>
+
+                <?php endif; ?>
+
+                <a class="text-uppercase loadmore-btn mx-auto d-block" href="search.php">
+                    Load More Job Posts
+                </a>
+
+            </div>
+
+
+            <!-- SIDEBAR -->
+            <div class="col-lg-4 sidebar">
+
+
+                <!-- JOBS BY LOCATION -->
+                <div class="single-slidebar">
+
+                    <h4>Jobs by Location</h4>
+
+                    <ul class="cat-list">
+
+                        <?php if (mysqli_num_rows($location_result) > 0): ?>
+
+                            <?php while ($location = mysqli_fetch_assoc($location_result)): ?>
+
+                                <li>
+                                    <a class="justify-content-between d-flex"
+                                       href="search.php?lokasi=<?php echo urlencode($location['lokasi']); ?>">
+
+                                        <p><?php echo htmlspecialchars($location['lokasi']); ?></p>
+
+                                        <span><?php echo $location['total']; ?></span>
+
+                                    </a>
+                                </li>
+
+                            <?php endwhile; ?>
+
+                        <?php else: ?>
+
+                            <li><p>Belum ada data lokasi.</p></li>
+
+                        <?php endif; ?>
+
+                    </ul>
+                </div>
+
+
+                <!-- FEATURED JOB POSTS -->
+                <div class="single-slidebar">
+
+                    <h4>Featured Job Posts</h4>
+
+                    <div class="active-relatedjob-carusel">
+
+                        <?php if (mysqli_num_rows($top_jobs_result) > 0): ?>
+
+                            <?php while ($top_job = mysqli_fetch_assoc($top_jobs_result)): ?>
+
+                                <div class="single-rated">
+
+                                    <img class="img-fluid" src="img/r1.jpg" alt="Job">
+
+                                    <a href="single.php?id=<?php echo (int) $top_job['id']; ?>">
+                                        <h4><?php echo htmlspecialchars($top_job['judul_posisi']); ?></h4>
+                                    </a>
+
+                                    <h6><?php echo htmlspecialchars($top_job['nama_perusahaan']); ?></h6>
+
+                                    <p>
+                                        <?php echo htmlspecialchars($top_job['deskripsi']); ?>
+                                    </p>
+
+                                    <h5>
+                                        Job Nature:
+                                        <?php echo htmlspecialchars($top_job['tipe']); ?>
+                                    </h5>
+
+                                    <p class="address">
+                                        <span class="lnr lnr-map"></span>
+                                        <?php echo htmlspecialchars($top_job['lokasi']); ?>
+                                    </p>
+
+                                    <p class="address">
+                                        <span class="lnr lnr-database"></span>
+                                        Rp<?php echo number_format($top_job['gaji_min'], 0, ',', '.'); ?>
+                                        -
+                                        Rp<?php echo number_format($top_job['gaji_max'], 0, ',', '.'); ?>
+                                    </p>
+
+                                    <a href="single.php?id=<?php echo (int) $top_job['id']; ?>"
+                                       class="btns text-uppercase">
+                                        View Job
+                                    </a>
+
+                                </div>
+
+                            <?php endwhile; ?>
+
+                        <?php else: ?>
+
+                            <p>Belum ada lowongan pilihan.</p>
+
+                        <?php endif; ?>
+
+                    </div>
+                </div>
+
+
+                <!-- JOBS BY CATEGORY -->
+                <div class="single-slidebar">
+
+                    <h4>Jobs by Category</h4>
+
+                    <ul class="cat-list">
+
+                        <?php if (mysqli_num_rows($category_result) > 0): ?>
+
+                            <?php while ($category = mysqli_fetch_assoc($category_result)): ?>
+
+                                <li>
+                                    <a class="justify-content-between d-flex"
+                                       href="category.php?kategori=<?php echo urlencode($category['kategori']); ?>">
+
+                                        <p><?php echo htmlspecialchars($category['kategori']); ?></p>
+
+                                        <span><?php echo $category['total']; ?></span>
+
+                                    </a>
+                                </li>
+
+                            <?php endwhile; ?>
+
+                        <?php else: ?>
+
+                            <li><p>Belum ada kategori.</p></li>
+
+                        <?php endif; ?>
+
+                    </ul>
+                </div>
+
+
+                <!-- CAREER ADVICE BLOG -->
+                <div class="single-slidebar">
+
+                    <h4>Career Advice Blog</h4>
+
+                    <div class="blog-list">
+
+                        <div class="single-blog" style="background:#000 url(img/blog1.jpg);">
+                            <a href="blog-home.php">
+                                <h4>Tips Membuat CV yang Menarik</h4>
+                            </a>
+
+                            <div class="meta justify-content-between d-flex">
+                                <p>Career Tips</p>
+                            </div>
+                        </div>
+
+                        <div class="single-blog" style="background:#000 url(img/blog2.jpg);">
+                            <a href="blog-home.php">
+                                <h4>Persiapan Menghadapi Wawancara Kerja</h4>
+                            </a>
+
+                            <div class="meta justify-content-between d-flex">
+                                <p>Career Tips</p>
+                            </div>
+                        </div>
+
+                        <div class="single-blog" style="background:#000 url(img/blog1.jpg);">
+                            <a href="blog-home.php">
+                                <h4>Cara Mencari Pekerjaan yang Sesuai</h4>
+                            </a>
+
+                            <div class="meta justify-content-between d-flex">
+                                <p>Career Tips</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- END SIDEBAR -->
+
+        </div>
+    </div>
+</section>
+<!-- END POST AREA -->
+
+
+<!-- CALL TO ACTION -->
+<section class="callto-action-area section-gap" id="join">
+    <div class="container">
+
+        <div class="row d-flex justify-content-center">
+            <div class="menu-content col-lg-9">
+
+                <div class="title text-center">
+
+                    <h1 class="mb-10 text-white">
+                        Join Us Today!
+                    </h1>
+
+                    <p class="text-white">
+                        Mulai perjalanan kariermu dengan menemukan pekerjaan yang sesuai.
+                    </p>
+
+                    <a class="primary-btn" href="register.php">
+                        Daftar Sekarang
+                    </a>
+
+                    <a class="primary-btn" href="search.php">
+                        Cari Lowongan
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- DOWNLOAD AREA -->
+<section class="download-area section-gap" id="app">
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-6 download-left">
+                <img class="img-fluid" src="img/d1.png" alt="">
+            </div>
+
+            <div class="col-lg-6 download-right">
+
+                <h1>Temukan Pekerjaan <br> Impianmu Hari Ini!</h1>
+
+                <p class="subs">
+                    Jelajahi berbagai peluang pekerjaan dan temukan posisi
+                    yang sesuai dengan kemampuan serta minatmu.
+                </p>
+
+                <a href="search.php" class="primary-btn">
+                    Cari Lowongan Sekarang
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="footer-area section-gap">
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-3 col-md-12">
+                <div class="single-footer-widget">
+
+                    <h6>Jobboard</h6>
+
+                    <ul class="footer-nav">
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="search.php">Cari Lowongan</a></li>
+                        <li><a href="category.php">Category</a></li>
+                        <li><a href="register.php">Daftar</a></li>
+                    </ul>
+
+                </div>
+            </div>
+
+
+            <div class="col-lg-6 col-md-12">
+                <div class="single-footer-widget newsletter">
+
+                    <h6>About Jobboard</h6>
+
+                    <p>
+                        Jobboard membantu pencari kerja menemukan peluang
+                        pekerjaan di wilayah Jabodetabek.
+                    </p>
+
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-12">
+                <div class="single-footer-widget">
+
+                    <h6>Contact</h6>
+
+                    <p>
+                        Temukan informasi lowongan pekerjaan terbaru melalui Jobboard.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row footer-bottom d-flex justify-content-between">
+
+            <p class="col-lg-8 col-sm-12 footer-text m-0 text-white">
+                Copyright &copy;
+                <script>
+                    document.write(new Date().getFullYear());
+                </script>
+                Jobboard. All rights reserved.
+            </p>
+
+            <div class="col-lg-4 col-sm-12 footer-social">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+            </div>
+
+        </div>
+
+    </div>
+</footer>
+
+
+<!-- SCRIPTS -->
+<script src="js/vendor/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="js/easing.min.js"></script>
+<script src="js/hoverIntent.js"></script>
+<script src="js/superfish.min.js"></script>
+<script src="js/jquery.ajaxchimp.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.sticky.js"></script>
+<script src="js/jquery.nice-select.min.js"></script>
+<script src="js/parallax.min.js"></script>
+<script src="js/mail-script.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
