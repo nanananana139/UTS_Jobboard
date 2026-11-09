@@ -70,40 +70,46 @@
 							<h1 class="text-white">
 								<span>1500+</span> Jobs posted last week				
 							</h1>	
-							<form action="search.html" class="serach-form-area">
+							<form action="search.php" class="serach-form-area">
 								<div class="row justify-content-center form-wrap">
+
+									<!-- Kolom pencarian -->
 									<div class="col-lg-4 form-cols">
-										<input type="text" class="form-control" name="search" placeholder="what are you looging for?">
+										<input type="text" class="form-control"
+											name="search"
+											placeholder="What are you looking for?">
 									</div>
+
+									<!-- Dropdown area -->
 									<div class="col-lg-3 form-cols">
-										<div class="default-select" id="default-selects"">
-											<select>
-												<option value="1">Select area</option>
-												<option value="2">Dhaka</option>
-												<option value="3">Rajshahi</option>
-												<option value="4">Barishal</option>
-												<option value="5">Noakhali</option>
-											</select>
-										</div>
+										<select class="form-control">
+											<option value="">Select Area</option>
+											<option value="jakarta">Jakarta</option>
+											<option value="bandung">Bandung</option>
+											<option value="surabaya">Surabaya</option>
+										</select>
 									</div>
+
+									<!-- Dropdown kategori -->
 									<div class="col-lg-3 form-cols">
-										<div class="default-select" id="default-selects2">
-											<select>
-												<option value="1">All Category</option>
-												<option value="2">Medical</option>
-												<option value="3">Technology</option>
-												<option value="4">Goverment</option>
-												<option value="5">Development</option>
-											</select>
-										</div>										
+										<select class="form-control">
+											<option value="">All Category</option>
+											<option value="technology">Technology</option>
+											<option value="business">Business</option>
+											<option value="design">Design</option>
+											<option value="development">Development</option>
+										</select>
 									</div>
+
+									<!-- Tombol search -->
 									<div class="col-lg-2 form-cols">
-									    <button type="button" class="btn btn-info">
-									      <span class="lnr lnr-magnifier"></span> Search
-									    </button>
-									</div>								
+										<button type="submit" class="btn btn-info">
+											<span class="lnr lnr-magnifier"></span> Search
+										</button>
+									</div>
+
 								</div>
-							</form>	
+							</form>
 							<p class="text-white"> <span>Search by tags:</span> Tecnology, Business, Consulting, IT Company, Design, Development</p>
 						</div>											
 					</div>

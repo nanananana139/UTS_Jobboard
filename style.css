@@ -42,3 +42,31 @@ input[type="button"], button {
     cursor: pointer;
     border-radius: 4px;
 }
+/* JobBoard Search Form */
+.banner-area .form-wrap {
+    display: flex;
+    align-items: center;
+}
+
+.banner-area .form-cols {
+    padding: 5px;
+}
+
+.banner-area .form-cols .form-control {
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    font-size: 14px;
+}
+
+.banner-area .form-cols select {
+    cursor: pointer;
+}
+
+.banner-area .form-cols button {
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+}
