@@ -472,10 +472,10 @@ if (!$location_result || !$category_result || !$top_jobs_result) {
                 </div>
 
 
-                <!-- FEATURED JOB POSTS -->
+                <!-- TOP RATED JOB POST -->
                 <div class="single-slidebar">
 
-                    <h4>Featured Job Posts</h4>
+                    <h4 class="heading">Top Rated Job Posts</h4>
 
                     <div class="active-relatedjob-carusel">
 
