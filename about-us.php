@@ -17,7 +17,7 @@ session_start();
     <!-- meta character set -->
     <meta charset="UTF-8">
     <!-- Site Title -->
-    <title>Beauty & Career Space</title>
+    <title>CareerSpace - Find Your Next Job</title>
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
     <!-- CSS ============================================= -->
@@ -42,21 +42,21 @@ session_start();
                 <ul class="nav-menu">
                 <li class="menu-active"><a href="index.php">Home</a></li>
                 <li><a href="about-us.php">About Us</a></li>
-                <li><a href="category.php">Category</a></li>
-                <li><a href="price.php">Price</a></li>
+                <li><a href="category.php">Categories</a></li>
+                <li><a href="price.php">Pricing</a></li>
                 <li><a href="blog-home.php">Blog</a></li>
                 <li><a href="contact.php">Contact</a></li>
                 <li class="menu-has-children"><a href="">Pages</a>
                     <ul>
-                        <li><a href="elements.php">elements</a></li>
-                        <li><a href="search.php">search</a></li>
-                        <li><a href="single.php">single</a></li>
+                        <li><a href="elements.php">Elements</a></li>
+                        <li><a href="search.php">Search Jobs</a></li>
+                        <li><a href="single.php">Job Details</a></li>
                     </ul>
                 </li>
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <li><a class="ticker-btn" href="logout.php">Logout</a></li>
                 <?php else: ?>
-                    <li><a class="ticker-btn" href="register.php">Signup</a></li>
+                    <li><a class="ticker-btn" href="register.php">Sign Up</a></li>
                     <li><a class="ticker-btn" href="login.php">Login</a></li>
                 <?php endif; ?>
                 </ul>
@@ -73,10 +73,10 @@ session_start();
             <div class="row d-flex align-items-center justify-content-center">
                 <div class="about-content col-lg-12">
                     <h1 class="text-white">
-                        Hello, Beautiful!        
+                        Empowering Your Career Journey        
                     </h1>   
                     <p class="text-white link-nav"><a href="index.php">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="about-us.php"> About Us</a></p>
-                </div>                                                          
+                </div>                                                                        
             </div>
         </div>
     </section>
@@ -87,65 +87,65 @@ session_start();
         <div class="container">
             <div class="row d-flex justify-content-center">
                 <div class="col-md-8 pb-40 header-text">
-                    <h1>Why You'll Love Us</h1>
+                    <h1>Why Choose Our Job Portal</h1>
                     <p>
-                        Dibuat khusus untuk mendukung perjalanan karier impianmu dengan penuh cinta ✨
+                        Designed specifically to connect ambitious talent with top employers across industries.
                     </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-6">
                     <div class="single-service">
-                        <h4><span class="lnr lnr-user"></span>Expert Mentors</h4>
+                        <h4><span class="lnr lnr-user"></span>Verified Employers</h4>
                         <p>
-                            Bimbingan profesional yang siap bantu kamu kembangkan skill dan potensi terbaikmu.
+                            Connect with trusted hiring managers and reputed companies actively seeking top talent.
                         </p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="single-service">
-                        <h4><span class="lnr lnr-license"></span>Friendly Community</h4>
+                        <h4><span class="lnr lnr-license"></span>Smart Matching</h4>
                         <p>
-                            Lingkungan belajar dan bekerja yang hangat, suportif, serta menyenangkan.
+                            Discover job opportunities tailored precisely to your skillset, experience, and goals.
                         </p>                                
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="single-service">
-                        <h4><span class="lnr lnr-phone"></span>24/7 Support</h4>
+                        <h4><span class="lnr lnr-phone"></span>Career Support</h4>
                         <p>
-                            Tim kami selalu ada untuk membantumu kapan pun kamu membutuhkan arahan.
+                            Get guidance, application assistance, and resources whenever you need a boost.
                         </p>                                
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="single-service">
-                        <h4><span class="lnr lnr-rocket"></span>Career Growth</h4>
+                        <h4><span class="lnr lnr-rocket"></span>Fast Application</h4>
                         <p>
-                            Tingkatkan rasa percaya diri dan wawasanmu untuk meraih karier impian.
+                            Apply to multiple open roles seamlessly with a single click and streamlined profile.
                         </p>                
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="single-service">
-                        <h4><span class="lnr lnr-diamond"></span>Loved by Thousands</h4>
+                        <h4><span class="lnr lnr-diamond"></span>Trusted Nationwide</h4>
                         <p>
-                            Telah dipercaya oleh ribuan wanita hebat untuk berkembang bersama.
+                            Relied upon by thousands of job seekers and recruitment teams to build great careers.
                         </p>                                
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="single-service">
-                        <h4><span class="lnr lnr-bubble"></span>Sweet Feedback</h4>
+                        <h4><span class="lnr lnr-bubble"></span>Verified Reviews</h4>
                         <p>
-                            Kisah sukses dan ulasan manis dari member yang telah berproses bersama kami.
+                            Real success stories and transparent feedback from candidates hired through our platform.
                         </p>                                    
                     </div>
                 </div>                      
             </div>
         </div>  
     </section>
-    <!-- End service Area -->                      
+    <!-- End service Area -->                    
 
     <!-- Start feature Area -->
     <section class="feature-area">
@@ -155,20 +155,20 @@ session_start();
                     <img class="img-fluid" src="img/pages/f1.jpg" alt="">
                 </div>
                 <div class="col-lg-3 no-padding feat-txt">
-                    <h6 class="text-uppercase text-white">GLOW UP YOUR CAREER</h6>
-                    <h1>Siapa Kami?</h1>
+                    <h6 class="text-uppercase text-white">ACCELERATE YOUR CAREER</h6>
+                    <h1>Who We Are</h1>
                     <p>
-                        Ruang aman dan kreatif tempat kamu bisa menemukan passion, mengasah bakat, dan bersinar di dunia kerja.
+                        A dedicated platform built to help candidates discover meaningful roles, build skills, and stand out in today's competitive job market.
                     </p>
                 </div>
                 <div class="col-lg-3 feat-img no-padding">
                     <img class="img-fluid" src="img/pages/f2.jpg" alt="">                           
                 </div>
                 <div class="col-lg-3 no-padding feat-txt">
-                    <h6 class="text-uppercase text-white">CREATING OPPORTUNITIES</h6>
-                    <h1>Peran Kami</h1>
+                    <h6 class="text-uppercase text-white">CONNECTING TALENT & OPPORTUNITY</h6>
+                    <h1>Our Mission</h1>
                     <p>
-                        Menghubungkan kamu dengan peluang kerja terbaik serta memberikan tempat untuk terus bertumbuh.
+                        Bridging the gap between talented professionals and hiring companies, making career growth accessible to everyone.
                     </p>
                 </div>
             </div>
@@ -182,8 +182,8 @@ session_start();
             <div class="row d-flex justify-content-center">
                 <div class="menu-content pb-70 col-lg-8">
                     <div class="title text-center">
-                        <h1 class="mb-10">Meet Our Lovely Mentors</h1>
-                        <p>Para wanita hebat dan profesional yang siap mendampingi langkahmu 💕</p>
+                        <h1 class="mb-10">Meet Our Talent Specialists</h1>
+                        <p>Dedicated recruitment and career experts here to guide your professional journey</p>
                     </div>
                 </div>
             </div>                      
@@ -199,7 +199,7 @@ session_start();
                     </div>
                     <div class="meta-text mt-30 text-center">
                         <h4>Ethel Davis</h4>
-                        <p>Chief Happiness Officer</p>                                            
+                        <p>Head of Talent Acquisition</p>                                            
                     </div>
                 </div>
                 <div class="col-md-3 single-team">
@@ -213,7 +213,7 @@ session_start();
                     </div>
                     <div class="meta-text mt-30 text-center">
                         <h4>Rodney Cooper</h4>
-                        <p>Creative & Aesthetic Lead</p>                  
+                        <p>Senior Career Consultant</p>                  
                     </div>
                 </div>  
                 <div class="col-md-3 single-team">
@@ -227,7 +227,7 @@ session_start();
                     </div>
                     <div class="meta-text mt-30 text-center">
                         <h4>Dora Walker</h4>
-                        <p>Head of Tech & Growth</p>                    
+                        <p>Tech & Growth Advisor</p>                    
                     </div>
                 </div>  
                 <div class="col-md-3 single-team">
@@ -241,9 +241,9 @@ session_start();
                     </div>
                     <div class="meta-text mt-30 text-center">
                         <h4>Lena Keller</h4>
-                        <p>Social Media & Content Stylist</p>                    
+                        <p>Employer Relations Lead</p>                    
                     </div>
-                </div>                                                                                                                
+                </div>                                                                                                                                
             </div>
         </div>  
     </section>
@@ -255,8 +255,8 @@ session_start();
             <div class="row d-flex justify-content-center">
                 <div class="menu-content col-lg-9">
                     <div class="title text-center">
-                        <h1 class="mb-10 text-white">Find Your Dream Career Today!</h1>
-                        <p class="text-white">Top companies are looking for talented people like you. Take your next step and land the job you’ve always wanted!</p>
+                        <h1 class="mb-10 text-white">Find Your Next Opportunity Today!</h1>
+                        <p class="text-white">Top companies are actively hiring talent like you. Take the next step in your career path!</p>
                         <a class="primary-btn" href="#">Explore Open Roles </a>
                         <a class="primary-btn" href="#">Post a Job </a>
                     </div>
@@ -272,8 +272,8 @@ session_start();
             <div class="row d-flex justify-content-center">
                 <div class="menu-content pb-60 col-lg-8">
                     <div class="title text-center">
-                        <h1 class="mb-10">Sweet Stories from Job Seekers</h1>
-                        <p>Happy moments from candidates who found their dream jobs through our portal 💌</p>
+                        <h1 class="mb-10">Success Stories from Job Seekers</h1>
+                        <p>Hear from candidates who successfully landed their dream roles through our platform</p>
                     </div>
                 </div>
             </div>                      
@@ -292,7 +292,7 @@ session_start();
                             </div>
                         </div>
                         <p>
-                            Applying for jobs here was so easy and smooth! I found great listings and got hired at my dream company last week.
+                            Applying for jobs here was fast and seamless! I filtered through relevant listings and got hired by a top tech company within a week.
                         </p>
                     </div>  
                     <div class="single-review">
@@ -308,7 +308,7 @@ session_start();
                             </div>
                         </div>
                         <p>
-                            The job search filters are super helpful. The application process was seamless and directly connected me with HR!
+                            The search filters are powerful and accurate. The application process directly connected me with HR managers without any delays.
                         </p>
                     </div>  
                     <div class="single-review">
@@ -324,7 +324,7 @@ session_start();
                             </div>
                         </div>
                         <p>
-                            Highly recommended for anyone looking for new opportunities! Perfect for fresh graduates searching for their first career step.
+                            Highly recommended for fresh graduates and experienced professionals alike looking to take the next major leap in their careers!
                         </p>
                     </div>  
                 </div>
@@ -345,14 +345,14 @@ session_start();
                             <li><a href="#">Technology & IT</a></li>
                             <li><a href="#">Creative & Design</a></li>
                             <li><a href="#">Marketing & Media</a></li>
-                            <li><a href="#">Admin & Finance</a></li>
+                            <li><a href="#">Finance & Admin</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-6  col-md-12">
                     <div class="single-footer-widget newsletter">
-                        <h6>Get Job Updates 💌</h6>
-                        <p>Receive fresh job alerts, interview tips, and career inspiration delivered straight to your inbox!</p>
+                        <h6>Get Job Alerts</h6>
+                        <p>Receive fresh job vacancies, interview tips, and market insights delivered straight to your inbox!</p>
                         <div id="mc_embed_signup">
                             <form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="form-inline">
 
@@ -365,7 +365,7 @@ session_start();
                                     </div> 
                                 
                                     <div class="col-lg-4 col-md-12">
-                                        <button class="nw-btn primary-btn">Subscribe 💌<span class="lnr lnr-arrow-right"></span></button>
+                                        <button class="nw-btn primary-btn">Subscribe<span class="lnr lnr-arrow-right"></span></button>
                                     </div> 
                                 </div>      
                                 <div class="info"></div>
@@ -375,7 +375,7 @@ session_start();
                 </div>
                 <div class="col-lg-3  col-md-12">
                     <div class="single-footer-widget mail-chimp">
-                        <h6 class="mb-20">Our Aesthetic Moments ✨</h6>
+                        <h6 class="mb-20">Workplace Highlights</h6>
                         <ul class="instafeed d-flex flex-wrap">
                             <li><img src="img/i1.jpg" alt=""></li>
                             <li><img src="img/i2.jpg" alt=""></li>
@@ -423,4 +423,4 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/mail-script.js"></script>   
     <script src="js/main.js"></script>  
 </body>
-</html>	
+</html>
