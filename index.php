@@ -68,41 +68,101 @@
 					<div class="row fullscreen d-flex align-items-center justify-content-center">
 						<div class="banner-content col-lg-12">
 							<h1 class="text-white">
-								<span>1500+</span> Jobs posted last week				
-							</h1>	
-							<form action="search.php" class="serach-form-area">
+								<span>13.000+</span> Jobs posted last week!				
+							</h1>
+							<form action="search.php" method="GET" class="serach-form-area">
 								<div class="row justify-content-center form-wrap">
 
 									<!-- Kolom pencarian -->
-									<div class="col-lg-4 form-cols">
+									<div class="col-lg-3 form-cols">
 										<input type="text" class="form-control"
 											name="search"
 											placeholder="What are you looking for?">
 									</div>
 
 									<!-- Dropdown area -->
-									<div class="col-lg-3 form-cols">
-										<select class="form-control">
+									<div class="col-lg-2 form-cols">
+										<select class="form-control" name="lokasi">
 											<option value="">Select Area</option>
-											<option value="jakarta">Jakarta</option>
-											<option value="bandung">Bandung</option>
-											<option value="surabaya">Surabaya</option>
+											<option value="jakarta-pusat">Jakarta Pusat</option>
+											<option value="jakarta-utara">Jakarta Utara</option>
+											<option value="jakarta-barat">Jakarta Barat</option>
+											<option value="jakarta-selatan">Jakarta Selatan</option>
+											<option value="jakarta-timur">Jakarta Timur</option>
+											<option value="bogor">Bogor</option>
+											<option value="depok">Depok</option>
+											<option value="bekasi">Bekasi</option>
+											<option value="tangerang">Tangerang</option>
+											<option value="tangerang-selatan">Tangerang Selatan</option>
+											<option value="kabupaten-bogor">Kabupaten Bogor</option>
+											<option value="kabupaten-bekasi">Kabupaten Bekasi</option>
+											<option value="kabupaten-tangerang">Kabupaten Tangerang</option>
 										</select>
 									</div>
 
 									<!-- Dropdown kategori -->
-									<div class="col-lg-3 form-cols">
-										<select class="form-control">
+									<div class="col-lg-2 form-cols">
+										<select class="form-control" name="kategori">
 											<option value="">All Category</option>
-											<option value="technology">Technology</option>
-											<option value="business">Business</option>
-											<option value="design">Design</option>
-											<option value="development">Development</option>
+											<option value="technology">Technology & IT</option>
+											<option value="business">Business & Management</option>
+											<option value="administration">Administration & Office</option>
+											<option value="finance">Finance & Accounting</option>
+											<option value="marketing">Marketing</option>
+											<option value="sales">Sales</option>
+											<option value="human-resources">Human Resources (HR)</option>
+											<option value="design">Design & Creative</option>
+											<option value="development">Software Development</option>
+											<option value="customer-service">Customer Service</option>
+											<option value="education">Education & Training</option>
+											<option value="healthcare">Healthcare & Medical</option>
+											<option value="engineering">Engineering</option>
+											<option value="manufacturing">Manufacturing & Production</option>
+											<option value="logistics">Logistics & Supply Chain</option>
+											<option value="warehouse">Warehouse & Inventory</option>
+											<option value="construction">Construction & Property</option>
+											<option value="hospitality">Hospitality & Tourism</option>
+											<option value="food-beverage">Food & Beverage</option>
+											<option value="retail">Retail & Merchandising</option>
+											<option value="transportation">Transportation & Driver</option>
+											<option value="legal">Legal</option>
+											<option value="media">Media & Communication</option>
+											<option value="content-creator">Content Creator</option>
+											<option value="security">Security</option>
+											<option value="cleaning">Cleaning & Maintenance</option>
+											<option value="freelance">Freelance & Remote</option>
+											<option value="internship">Internship</option>
+											<option value="other">Other</option>
 										</select>
 									</div>
 
-									<!-- Tombol search -->
+									<!-- Dropdown Job Type -->
 									<div class="col-lg-2 form-cols">
+										<select class="form-control" name="tipe">
+											<option value="">All Job Types</option>
+											<option value="full-time">Full Time</option>
+											<option value="part-time">Part Time</option>
+											<option value="contract">Contract</option>
+											<option value="internship">Internship</option>
+											<option value="freelance">Freelance</option>
+										</select>
+									</div>
+
+									<!-- Dropdown range gaji -->
+									<div class="col-lg-2 form-cols">
+										<select class="form-control" name="gaji">
+											<option value="">Salary Range</option>
+											<option value="0-1000000">Rp 0 - Rp 1.000.000</option>
+											<option value="1000000-3000000">Rp 1.000.000 - Rp 3.000.000</option>
+											<option value="3000000-5000000">Rp 3.000.000 - Rp 5.000.000</option>
+											<option value="5000000-10000000">Rp 5.000.000 - Rp 10.000.000</option>
+											<option value="10000000-20000000">Rp 10.000.000 - Rp 20.000.000</option>
+											<option value="20000000+">Rp 20.000.000+</option>
+										</select>
+									</div>
+
+									<!-- Tombol Search -->
+									<div class="col-lg-1 form-cols">
 										<button type="submit" class="btn btn-info">
 											<span class="lnr lnr-magnifier"></span> Search
 										</button>
