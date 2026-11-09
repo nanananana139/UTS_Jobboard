@@ -14,7 +14,7 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-		<title>JobBoard - Website Mencari Pekerjaan</title>
+		<title>Jobboard-Website Mencari Pekerjaan</title>
 
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 			<!--
@@ -35,21 +35,21 @@
 			    <div class="container">
 			    	<div class="row align-items-center justify-content-between d-flex">
 				      <div id="logo">
-				        <a href="index.php"><img src="img/logo.png" alt="" title="" /></a>
+				        <a href="index.html"><img src="img/logo.png" alt="" title="" /></a>
 				      </div>
 				      <nav id="nav-menu-container">
 				        <ul class="nav-menu">
-				          <li class="menu-active"><a href="index.php">Home</a></li>
-				          <li><a href="about-us.php">About Us</a></li>
-				          <li><a href="category.php">Category</a></li>
-				          <li><a href="price.php">Price</a></li>
-				          <li><a href="blog-home.php">Blog</a></li>
-				          <li><a href="contact.php">Contact</a></li>
+				          <li class="menu-active"><a href="index.html">Home</a></li>
+				          <li><a href="about-us.html">About Us</a></li>
+				          <li><a href="category.html">Category</a></li>
+				          <li><a href="price.html">Price</a></li>
+				          <li><a href="blog-home.html">Blog</a></li>
+				          <li><a href="contact.html">Contact</a></li>
 				          <li class="menu-has-children"><a href="">Pages</a>
 				            <ul>
-								<li><a href="elements.php">elements</a></li>
-								<li><a href="search.php">search</a></li>
-								<li><a href="single.php">single</a></li>
+								<li><a href="elements.html">elements</a></li>
+								<li><a href="search.html">search</a></li>
+								<li><a href="single.html">single</a></li>
 				            </ul>
 				          </li>
 				          <li><a class="ticker-btn" href="#">Signup</a></li>
@@ -70,13 +70,13 @@
 							<h1 class="text-white">
 								<span>1500+</span> Jobs posted last week				
 							</h1>	
-							<form action="search.php" class="serach-form-area">
+							<form action="search.html" class="serach-form-area">
 								<div class="row justify-content-center form-wrap">
 									<div class="col-lg-4 form-cols">
 										<input type="text" class="form-control" name="search" placeholder="what are you looging for?">
 									</div>
 									<div class="col-lg-3 form-cols">
-										<div class="default-select" id="default-selects">
+										<div class="default-select" id="default-selects"">
 											<select>
 												<option value="1">Select area</option>
 												<option value="2">Dhaka</option>
@@ -98,7 +98,7 @@
 										</div>										
 									</div>
 									<div class="col-lg-2 form-cols">
-									    <button type="submit" class="btn btn-info">
+									    <button type="button" class="btn btn-info">
 									      <span class="lnr lnr-magnifier"></span> Search
 									    </button>
 									</div>								
@@ -255,7 +255,7 @@
 					<div class="row">
 						<div class="col-lg-2 col-md-4 col-sm-6">
 							<div class="single-fcat">
-								<a href="category.php">
+								<a href="category.html">
 									<img src="img/o1.png" alt="">
 								</a>
 								<p>Accounting</p>
@@ -263,7 +263,7 @@
 						</div>
 						<div class="col-lg-2 col-md-4 col-sm-6">
 							<div class="single-fcat">
-								<a href="category.php">
+								<a href="category.html">
 									<img src="img/o2.png" alt="">
 								</a>
 								<p>Development</p>
@@ -271,7 +271,7 @@
 						</div>
 						<div class="col-lg-2 col-md-4 col-sm-6">
 							<div class="single-fcat">
-								<a href="category.php">
+								<a href="category.html">
 									<img src="img/o3.png" alt="">
 								</a>
 								<p>Technology</p>
@@ -279,7 +279,7 @@
 						</div>
 						<div class="col-lg-2 col-md-4 col-sm-6">
 							<div class="single-fcat">
-								<a href="category.php">
+								<a href="category.html">
 									<img src="img/o4.png" alt="">
 								</a>
 								<p>Media & News</p>
@@ -287,7 +287,7 @@
 						</div>
 						<div class="col-lg-2 col-md-4 col-sm-6">
 							<div class="single-fcat">
-								<a href="category.php">
+								<a href="category.html">
 									<img src="img/o5.png" alt="">
 								</a>
 								<p>Medical</p>
@@ -295,7 +295,7 @@
 						</div>
 						<div class="col-lg-2 col-md-4 col-sm-6">
 							<div class="single-fcat">
-								<a href="category.php">
+								<a href="category.html">
 									<img src="img/o6.png" alt="">
 								</a>
 								<p>Goverment</p>
@@ -335,7 +335,7 @@
 								<div class="details">
 									<div class="title d-flex flex-row justify-content-between">
 										<div class="titles">
-											<a href="single.php"><h4>Creative Art Designer</h4></a>
+											<a href="single.html"><h4>Creative Art Designer</h4></a>
 											<h6>Premium Labels Limited</h6>					
 										</div>
 										<ul class="btns">
@@ -369,7 +369,7 @@
 								<div class="details">
 									<div class="title d-flex flex-row justify-content-between">
 										<div class="titles">
-											<a href="single.php"><h4>Creative Art Designer</h4></a>
+											<a href="single.html"><h4>Creative Art Designer</h4></a>
 											<h6>Premium Labels Limited</h6>					
 										</div>
 										<ul class="btns">
@@ -403,7 +403,7 @@
 								<div class="details">
 									<div class="title d-flex flex-row justify-content-between">
 										<div class="titles">
-											<a href="single.php"><h4>Creative Art Designer</h4></a>
+											<a href="single.html"><h4>Creative Art Designer</h4></a>
 											<h6>Premium Labels Limited</h6>					
 										</div>
 										<ul class="btns">
@@ -437,7 +437,7 @@
 								<div class="details">
 									<div class="title d-flex flex-row justify-content-between">
 										<div class="titles">
-											<a href="single.php"><h4>Creative Art Designer</h4></a>
+											<a href="single.html"><h4>Creative Art Designer</h4></a>
 											<h6>Premium Labels Limited</h6>					
 										</div>
 										<ul class="btns">
@@ -471,7 +471,7 @@
 								<div class="details">
 									<div class="title d-flex flex-row justify-content-between">
 										<div class="titles">
-											<a href="single.php"><h4>Creative Art Designer</h4></a>
+											<a href="single.html"><h4>Creative Art Designer</h4></a>
 											<h6>Premium Labels Limited</h6>					
 										</div>
 										<ul class="btns">
@@ -505,7 +505,7 @@
 								<div class="details">
 									<div class="title d-flex flex-row justify-content-between">
 										<div class="titles">
-											<a href="single.php"><h4>Creative Art Designer</h4></a>
+											<a href="single.html"><h4>Creative Art Designer</h4></a>
 											<h6>Premium Labels Limited</h6>					
 										</div>
 										<ul class="btns">
@@ -539,7 +539,7 @@
 								<div class="details">
 									<div class="title d-flex flex-row justify-content-between">
 										<div class="titles">
-											<a href="single.php"><h4>Creative Art Designer</h4></a>
+											<a href="single.html"><h4>Creative Art Designer</h4></a>
 											<h6>Premium Labels Limited</h6>					
 										</div>
 										<ul class="btns">
@@ -556,20 +556,20 @@
 								</div>
 							</div>	
 							
-							<a class="text-uppercase loadmore-btn mx-auto d-block" href="category.php">Load More job Posts</a>
+							<a class="text-uppercase loadmore-btn mx-auto d-block" href="category.html">Load More job Posts</a>
 
 						</div>
 						<div class="col-lg-4 sidebar">
 							<div class="single-slidebar">
 								<h4>Jobs by Location</h4>
 								<ul class="cat-list">
-									<li><a class="justify-content-between d-flex" href="category.php"><p>New York</p><span>37</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Park Montana</p><span>57</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Atlanta</p><span>33</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Arizona</p><span>36</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Florida</p><span>47</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Rocky Beach</p><span>27</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Chicago</p><span>17</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>New York</p><span>37</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Park Montana</p><span>57</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Atlanta</p><span>33</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Arizona</p><span>36</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Florida</p><span>47</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Rocky Beach</p><span>27</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Chicago</p><span>17</span></a></li>
 								</ul>
 							</div>
 
@@ -578,7 +578,7 @@
 								<div class="active-relatedjob-carusel">
 									<div class="single-rated">
 										<img class="img-fluid" src="img/r1.jpg" alt="">
-										<a href="single.php"><h4>Creative Art Designer</h4></a>
+										<a href="single.html"><h4>Creative Art Designer</h4></a>
 										<h6>Premium Labels Limited</h6>
 										<p>
 											Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
@@ -590,7 +590,7 @@
 									</div>
 									<div class="single-rated">
 										<img class="img-fluid" src="img/r1.jpg" alt="">
-										<a href="single.php"><h4>Creative Art Designer</h4></a>
+										<a href="single.html"><h4>Creative Art Designer</h4></a>
 										<h6>Premium Labels Limited</h6>
 										<p>
 											Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
@@ -602,7 +602,7 @@
 									</div>
 									<div class="single-rated">
 										<img class="img-fluid" src="img/r1.jpg" alt="">
-										<a href="single.php"><h4>Creative Art Designer</h4></a>
+										<a href="single.html"><h4>Creative Art Designer</h4></a>
 										<h6>Premium Labels Limited</h6>
 										<p>
 											Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporinc ididunt ut dolore magna aliqua.
@@ -618,13 +618,13 @@
 							<div class="single-slidebar">
 								<h4>Jobs by Category</h4>
 								<ul class="cat-list">
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Technology</p><span>37</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Media & News</p><span>57</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Goverment</p><span>33</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Medical</p><span>36</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Restaurants</p><span>47</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Developer</p><span>27</span></a></li>
-									<li><a class="justify-content-between d-flex" href="category.php"><p>Accounting</p><span>17</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Technology</p><span>37</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Media & News</p><span>57</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Goverment</p><span>33</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Medical</p><span>36</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Restaurants</p><span>47</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Developer</p><span>27</span></a></li>
+									<li><a class="justify-content-between d-flex" href="category.html"><p>Accounting</p><span>17</span></a></li>
 								</ul>
 							</div>
 
@@ -632,7 +632,7 @@
 								<h4>Carrer Advice Blog</h4>
 								<div class="blog-list">
 									<div class="single-blog " style="background:#000 url(img/blog1.jpg);">
-										<a href="single.php"><h4>Home Audio Recording <br>
+										<a href="single.html"><h4>Home Audio Recording <br>
 										For Everyone</h4></a>
 										<div class="meta justify-content-between d-flex">
 											<p>
@@ -647,7 +647,7 @@
 										</div>
 									</div>
 									<div class="single-blog " style="background:#000 url(img/blog2.jpg);">
-										<a href="single.php"><h4>Home Audio Recording <br>
+										<a href="single.html"><h4>Home Audio Recording <br>
 										For Everyone</h4></a>
 										<div class="meta justify-content-between d-flex">
 											<p>
@@ -662,7 +662,7 @@
 										</div>
 									</div>
 									<div class="single-blog " style="background:#000 url(img/blog1.jpg);">
-										<a href="single.php"><h4>Home Audio Recording <br>
+										<a href="single.html"><h4>Home Audio Recording <br>
 										For Everyone</h4></a>
 										<div class="meta justify-content-between d-flex">
 											<p>
@@ -712,7 +712,7 @@
 						</div>
 						<div class="col-lg-6 download-right">
 							<h1>Download the <br>
-							Job Listing App Today!</h1>
+							Jobboard App Today!</h1>
 							<p class="subs">
 								It won’t be a bigger problem to find one video game lover in your neighbor. Since the introduction of Virtual Game, it has been achieving great heights so far as its popularity and technological advancement are concerned.
 							</p>
@@ -839,59 +839,3 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 
 
-<html>
-<head>
-    <title>Naflah's Portofolio</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-       <header style="background-color: rgb(233, 76, 180); color: white; padding: 16px 24px; font-family: Arial, sans-serif;">
-       <div style="display: flex; justify-content: space-between; align-items: center;">
-        <div>
-            <h2 style="margin: 0; font-size: 24px; font-weight: bold;">Naflah's Portofolio</h2>
-            <p style="margin: 4px 0 0 0; font-size: 14px; opacity: 0.9;"> Student</p>
-        </div>
-        <nav>
-    <a style="color: white; margin-right: 12px; text-decoration: none;" href="index.php">Beranda</a>
-    <a style="color: white; margin-right: 12px; text-decoration: none;" href="resume.php">resume</a>
-    <a style="color: white; margin-right: 12px; text-decoration: none;" href="kontak.php">kontak</a>
-    <a style="color: white; text-decoration: none;" href="https://google.com">google</a>
-    
-</nav>
-    </div>
-</header>
-       
-<div style="text-align: center; margin-bottom: 20px;">
-    <img src="images/foto.jpeg" alt="Foto Naflah Keumala" style="width: 160px; height: 160px; object-fit: cover; border-radius: 50%; border: 4px solid rgb(233, 76, 180);">
-    <h3 style="margin-top: 12px; margin-bottom: 4px;">Hi I'm Naflah Keumala</h3>
-   
-</div>
- <table border="1" width="50%" style="margin-left: auto; margin-right: auto; margin-top: 24px; margin-bottom: 64px;">
-    <tr>
-                
-    <tr>
-        <th>No.</th>
-        <th>Student ID</th>
-        <th colspan="1">name</th>
-        <th>Major</th>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>125103003</td>
-        <td>Naflah keumala</td>
-        <td rowspan="1">Informatics Engineering</td>
-    </tr>
-</table>
-
-            <hr>
-
-            </section>
-            <article>
-                <h4>little intermezzo</h4>
-                <p>an simple portfolio about me, for web programming assignment.</p>
-            </article>
-        </main>
-        <aside>
-        </aside>
-        <footer></footer>
-    </body>
-</html>
