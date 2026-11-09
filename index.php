@@ -220,8 +220,8 @@ if (!$location_result || !$category_result || !$top_jobs_result) {
                             <select class="form-control" name="gaji">
                                 <option value="">Salary Range</option>
                                 <option value="0-1000000">Rp 0 - Rp 1.000.000</option>
-                                <option value="1000000-3000000">Rp 1.000.000 - Rp 3.000.000</option>
-                                <option value="3000000-5000000">Rp 3.000.000 - Rp 5.000.000</option>
+                                <option value="1000000-200000">Rp 1.000.000 - Rp 2000.000</option>
+                                <option value="200000-5000000">Rp 2000.000 - Rp 5.000.000</option>
                                 <option value="5000000-10000000">Rp 5.000.000 - Rp 10.000.000</option>
                                 <option value="10000000-20000000">Rp 10.000.000 - Rp 20.000.000</option>
                                 <option value="20000000+">Rp 20.000.000+</option>
