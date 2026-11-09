@@ -76,7 +76,7 @@
 										<input type="text" class="form-control" name="search" placeholder="what are you looging for?">
 									</div>
 									<div class="col-lg-3 form-cols">
-										<div class="default-select" id="default-selects"">
+										<div class="default-select" id="default-selects">
 											<select>
 												<option value="1">Select area</option>
 												<option value="2">Dhaka</option>
@@ -98,7 +98,7 @@
 										</div>										
 									</div>
 									<div class="col-lg-2 form-cols">
-									    <button type="button" class="btn btn-info">
+									    <button type="submit" class="btn btn-info">
 									      <span class="lnr lnr-magnifier"></span> Search
 									    </button>
 									</div>								
