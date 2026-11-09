@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Thanks for downloading this theme!
 
 ## Other Useful Links
@@ -23,3 +24,7 @@ Alternatively, here's our top most trending and selling items:
 * [**Mega Discount**](https://themewagon.com/themes/mega-discount-bundle/) - A bundle of 26 HTML5 templates; best value for your money. 
 
 
+=======
+# web-UTS-Jobboard
+UTS Pemograman Web 
+>>>>>>> 1979024800bab806c175e8051a26ad70f9120d20
