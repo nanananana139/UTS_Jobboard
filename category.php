@@ -416,6 +416,7 @@ if (!empty($selectedCategory)) {
 		            <ul>
 
 						<li><a href="search.php">search</a></li>
+                        <li><a href="single.php">single</a></li>
 
 		            </ul>
 		          </li>

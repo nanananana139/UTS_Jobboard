@@ -80,6 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		          <li class="menu-has-children"><a href="#">Pages</a>
 		            <ul>
 						<li><a href="search.php">search</a></li>
+						<li><a href="single.php">single</a></li>
 		            </ul>
 		          </li>
 		          <li><a class="ticker-btn" href="#">Signup</a></li>

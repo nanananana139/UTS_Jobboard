@@ -48,6 +48,7 @@ session_start();
                 <li class="menu-has-children"><a href="">Pages</a>
                     <ul>
                         <li><a href="search.php">Search Jobs</a></li>
+                        <li><a href="single.php">single</a></li>
 
                     </ul>
                 </li>

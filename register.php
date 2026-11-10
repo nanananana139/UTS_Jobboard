@@ -75,7 +75,6 @@ body {
 				          <li><a href="contact.php">Contact</a></li>
 				          <li class="menu-has-children"><a href="">Pages</a>
 				            <ul>
-								<li><a href="elements.php">elements</a></li>
 								<li><a href="search.php">search</a></li>
 								<li><a href="single.php">single</a></li>
 				            </ul>
