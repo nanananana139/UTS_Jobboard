@@ -76,13 +76,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		          <li><a href="about-us.php">About Us</a></li>
 		          <li><a href="category.php">Category</a></li>
 		          <li><a href="price.php">Price</a></li>
-		          <li><a href="blog-home.php">Blog</a></li>
 		          <li class="menu-active"><a href="contact.php">Contact</a></li>
 		          <li class="menu-has-children"><a href="#">Pages</a>
 		            <ul>
-						<li><a href="elements.php">elements</a></li>
 						<li><a href="search.php">search</a></li>
-						<li><a href="single.php">single</a></li>
 		            </ul>
 		          </li>
 		          <li><a class="ticker-btn" href="#">Signup</a></li>

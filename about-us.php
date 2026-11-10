@@ -44,13 +44,11 @@ session_start();
                 <li><a href="about-us.php">About Us</a></li>
                 <li><a href="category.php">Categories</a></li>
                 <li><a href="price.php">Pricing</a></li>
-                <li><a href="blog-home.php">Blog</a></li>
                 <li><a href="contact.php">Contact</a></li>
                 <li class="menu-has-children"><a href="">Pages</a>
                     <ul>
-                        <li><a href="elements.php">Elements</a></li>
                         <li><a href="search.php">Search Jobs</a></li>
-                        <li><a href="single.php">Job Details</a></li>
+
                     </ul>
                 </li>
                 <?php if (isset($_SESSION['user_id'])): ?>
