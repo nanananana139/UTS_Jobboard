@@ -2,6 +2,41 @@
 // Konfigurasi Title Halaman
 $pageTitle = "Job Listing - Category";
 
+// Fungsi Helper untuk Menentukan Ikon FontAwesome Berdasarkan Kategori Pekerjaan
+function getCategoryIcon($category) {
+    switch (strtolower($category)) {
+        case 'technology':          return 'fa-laptop';
+        case 'business':            return 'fa-briefcase';
+        case 'administration':      return 'fa-folder-open';
+        case 'finance':             return 'fa-calculator';
+        case 'marketing':           return 'fa-bullhorn';
+        case 'sales':               return 'fa-line-chart';
+        case 'human-resources':     return 'fa-users';
+        case 'design':              return 'fa-paint-brush';
+        case 'development':         return 'fa-code';
+        case 'customer-service':    return 'fa-headphones';
+        case 'education':           return 'fa-graduation-cap';
+        case 'healthcare':          return 'fa-medkit';
+        case 'engineering':         return 'fa-cogs';
+        case 'manufacturing':       return 'fa-industry';
+        case 'logistics':           return 'fa-truck';
+        case 'warehouse':           return 'fa-archive';
+        case 'construction':        return 'fa-building';
+        case 'hospitality':         return 'fa-bed';
+        case 'food-beverage':       return 'fa-cutlery';
+        case 'retail':              return 'fa-shopping-cart';
+        case 'transportation':      return 'fa-car';
+        case 'legal':               return 'fa-balance-scale';
+        case 'media':               return 'fa-newspaper-o';
+        case 'content-creator':     return 'fa-camera';
+        case 'security':            return 'fa-shield';
+        case 'cleaning':            return 'fa-wrench';
+        case 'freelance':           return 'fa-globe';
+        case 'internship':          return 'fa-graduation-cap';
+        default:                    return 'fa-briefcase';
+    }
+}
+
 // Daftar Pilihan Kategori Lengkap
 $categories = [
     "" => "All Category",
@@ -439,8 +474,11 @@ if (!empty($selectedCategory)) {
 					<?php if (!empty($filteredListings)): ?>
 						<?php foreach ($filteredListings as $job): ?>
 							<div class="single-post d-flex flex-row">
-								<div class="thumb">
-									<img src="img/post.png" alt="">
+								<div class="thumb" style="margin-right: 20px;">
+									<!-- Kotak Ikon Kategori Berbasis FontAwesome -->
+									<div style="width: 80px; height: 80px; background-color: #f4f5f8; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+										<i class="fa <?php echo getCategoryIcon($job['category']); ?>" style="font-size: 32px; color: #49e4fa;"></i>
+									</div>
 									<ul class="tags">
 										<?php foreach ($job['tags'] as $tag): ?>
 											<li><a href="#"><?php echo htmlspecialchars($tag); ?></a></li>
