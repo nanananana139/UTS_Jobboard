@@ -1,78 +1,13 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-}
 
-table {
-    border-collapse: collapse;
-    background-color: white;
-    margin-top: 24px;
-    margin-bottom: 32px;
-}
-
-th, td {
-    padding: 10px 14px;
-    border: 1px solid #ccc;
-    text-align: center;
-}
-
-th {
-    background-color: rgb(233, 76, 180);
-    color: white;
-}
-
-form {
-    margin-top: 20px;
-}
-
-input, textarea, select {
-    padding: 8px;
-    margin: 4px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-input[type="button"], button {
-    background-color: rgb(233, 76, 180);
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-/* JobBoard Search Form */
-.banner-area .form-wrap {
-    display: flex;
-    align-items: center;
-}
-
-.banner-area .form-cols {
-    padding: 5px;
-}
-
-.banner-area .form-cols .form-control {
-    width: 100%;
-    height: 50px;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #333;
-    font-size: 14px;
-}
-
-.banner-area .form-cols select {
-    cursor: pointer;
-}
-
-.banner-area .form-cols button {
-    width: 100%;
-    height: 50px;
-    border-radius: 5px;
-}
+/* =========================================
+   JOBBOARD - CUSTOM STYLE
+   Template utama tetap menggunakan main.css
+========================================= */
 
 
-/* ===== JOBBOARD SEARCH FORM ===== */
+/* =========================================
+   SEARCH FORM
+========================================= */
 
 .serach-form-area {
     width: 100%;
@@ -83,7 +18,6 @@ input[type="button"], button {
     border-radius: 10px;
 }
 
-/* Lima kotak dengan ukuran sama */
 .serach-form-area .form-wrap {
     display: grid !important;
     grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -92,7 +26,6 @@ input[type="button"], button {
     margin: 0 !important;
 }
 
-/* Menghilangkan pengaturan kolom Bootstrap */
 .serach-form-area .form-cols {
     width: 100% !important;
     max-width: 100% !important;
@@ -101,7 +34,6 @@ input[type="button"], button {
     margin: 0 !important;
 }
 
-/* Input dan dropdown dibuat sama */
 .serach-form-area .form-control {
     width: 100% !important;
     height: 52px !important;
@@ -121,7 +53,6 @@ input[type="button"], button {
     box-shadow: 0 0 0 3px rgba(133, 114, 213, 0.12);
 }
 
-/* Tombol search di bawah lima kotak */
 .serach-form-area .form-cols:last-child {
     grid-column: 1 / -1;
     display: flex;
@@ -140,12 +71,71 @@ input[type="button"], button {
     font-weight: 600;
     text-transform: uppercase;
     transition: 0.3s ease;
+    cursor: pointer;
 }
 
 .serach-form-area button:hover {
     background: #51409B;
     color: #FFFFFF;
 }
+
+
+/* =========================================
+   JOB LIST
+========================================= */
+
+.popular-post-area {
+    background-color: #F7F5FF;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.popular-post-area .single-job-list {
+    background-color: #FFFFFF;
+    border: 1px solid #EAE6F5;
+    border-radius: 12px;
+    padding: 25px 30px;
+    margin-bottom: 18px;
+    transition: all 0.3s ease;
+}
+
+.popular-post-area .single-job-list:hover {
+    border-color: #B9A9EE;
+    box-shadow: 0 8px 22px rgba(133, 114, 213, 0.12);
+}
+
+.popular-post-area .job-title h4 {
+    color: #383052;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.popular-post-area .job-title h4:hover {
+    color: #8572D5;
+}
+
+.popular-post-area .address li {
+    color: #8572D5;
+}
+
+.popular-post-area .job-title p {
+    color: #77718A;
+    line-height: 1.8;
+}
+
+.popular-post-area a {
+    color: #8572D5;
+    transition: 0.3s ease;
+}
+
+.popular-post-area a:hover {
+    color: #6552B5;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
 
 /* Tablet */
 @media (max-width: 992px) {
@@ -154,7 +144,7 @@ input[type="button"], button {
     }
 }
 
-/* HP */
+/* Mobile */
 @media (max-width: 576px) {
     .serach-form-area {
         padding: 18px;
@@ -168,69 +158,8 @@ input[type="button"], button {
     .serach-form-area button {
         width: 100%;
     }
-}
 
-
-/* ===== JOBBOARD - JOB LIST COLOR THEME ===== */
-
-/* Background area daftar lowongan */
-.popular-post-area {
-    background-color: #F7F5FF;
-    padding-top: 80px;
-    padding-bottom: 80px;
-}
-
-/* Kartu lowongan */
-.popular-post-area .single-job-list {
-    background-color: #FFFFFF;
-    border: 1px solid #EAE6F5;
-    border-radius: 12px;
-    padding: 25px 30px;
-    margin-bottom: 18px;
-    transition: all 0.3s ease;
-}
-
-/* Efek saat kartu disentuh */
-.popular-post-area .single-job-list:hover {
-    border-color: #B9A9EE;
-    box-shadow: 0 8px 22px rgba(133, 114, 213, 0.12);
-}
-
-/* Judul pekerjaan */
-.popular-post-area .job-title h4 {
-    color: #383052;
-    font-weight: 700;
-    transition: 0.3s;
-}
-
-.popular-post-area .job-title h4:hover {
-    color: #8572D5;
-}
-
-/* Informasi lokasi, tipe, dan gaji */
-.popular-post-area .address li {
-    color: #8572D5;
-}
-
-/* Deskripsi pekerjaan */
-.popular-post-area .job-title p {
-    color: #77718A;
-    line-height: 1.8;
-}
-
-/* Link atau tombol detail */
-.popular-post-area a {
-    color: #8572D5;
-}
-
-.popular-post-area a:hover {
-    color: #6552B5;
-}
-
-/* Responsive */
-@media (max-width: 576px) {
     .popular-post-area .single-job-list {
         padding: 20px;
     }
 }
-
