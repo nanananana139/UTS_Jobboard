@@ -33,6 +33,24 @@ $category_result = mysqli_query($conn, "
     LIMIT 7
 ");
 
+// Enam kategori teratas untuk bagian Featured Job Categories
+$featured_category_result = mysqli_query($conn, "
+    SELECT kategori, COUNT(*) AS total
+    FROM jobs
+    WHERE status = 'Buka'
+    GROUP BY kategori
+    ORDER BY total DESC
+    LIMIT 6
+");
+
+// Jumlah lowongan yang diposting dalam tujuh hari terakhir
+$weekly_count_result = mysqli_query($conn, "
+    SELECT COUNT(*) AS total
+    FROM jobs
+    WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+");
+$weekly_count = $weekly_count_result ? (int) mysqli_fetch_assoc($weekly_count_result)['total'] : 0;
+
 // 3 lowongan terbaru untuk Featured Job Posts
 $top_jobs_result = mysqli_query($conn, "
     SELECT * FROM jobs
@@ -41,7 +59,15 @@ $top_jobs_result = mysqli_query($conn, "
     LIMIT 3
 ");
 
-if (!$location_result || !$category_result || !$top_jobs_result) {
+// 6 lowongan terbaru untuk Popular Job Posts (carousel)
+$popular_jobs_result = mysqli_query($conn, "
+    SELECT * FROM jobs
+    WHERE status = 'Buka'
+    ORDER BY created_at DESC
+    LIMIT 6
+");
+
+if (!$location_result || !$category_result || !$featured_category_result || !$top_jobs_result || !$popular_jobs_result) {
     die("Gagal mengambil data tambahan: " . mysqli_error($conn));
 }
 ?>
@@ -71,6 +97,211 @@ if (!$location_result || !$category_result || !$top_jobs_result) {
     <link rel="stylesheet" href="css/owl.carousel.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="style.css">
+
+    <!-- Perapihan khusus dua carousel, tanpa mengubah layout template lain -->
+    <style>
+        /* Popular Job Posts: kartu hitam sejajar dan isi tidak saling menimpa */
+        .popular-post-area {
+            padding-top: 80px;
+            padding-bottom: 65px;
+            overflow: hidden;
+        }
+
+        .popular-post-area .active-popular-post-carusel {
+            width: 100%;
+            position: relative;
+        }
+
+        .popular-post-area .owl-stage {
+            display: flex;
+            align-items: stretch;
+        }
+
+        .popular-post-area .owl-item {
+            display: flex;
+            height: auto;
+        }
+
+        .popular-post-area .single-popular-post {
+            display: flex !important;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            min-height: 156px;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 20px;
+            margin: 0;
+            overflow: hidden;
+            background: #222;
+        }
+
+        .popular-post-area .single-popular-post .thumb {
+            flex: 0 0 130px;
+            width: 130px;
+            min-width: 130px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .popular-post-area .single-popular-post .thumb img {
+            display: block;
+            width: 62px;
+            height: 48px;
+            object-fit: contain;
+            margin: 0;
+        }
+
+        .popular-post-area .single-popular-post .thumb .btns {
+            position: static !important;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            width: 130px;
+            min-width: 130px;
+            max-width: 130px;
+            padding: 8px 6px;
+            margin: 0;
+            line-height: 1.3;
+            white-space: nowrap;
+            text-align: center;
+            font-size: 10px;
+            background: #49dff1 !important;
+            border: 1px solid #49dff1 !important;
+            color: #fff !important;
+            border-radius: 0;
+            transition: background .3s ease, border-color .3s ease;
+        }
+
+        .popular-post-area .single-popular-post .thumb .btns:hover,
+        .popular-post-area .single-popular-post .thumb .btns:focus {
+            background: #25c9df !important;
+            border-color: #25c9df !important;
+            color: #fff !important;
+        }
+
+        .popular-post-area .single-popular-post .details {
+            flex: 1 1 auto;
+            min-width: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .popular-post-area .single-popular-post .details h4 {
+            margin: 0 0 5px;
+            color: #fff;
+            font-size: 16px;
+            line-height: 1.35;
+            overflow-wrap: anywhere;
+        }
+
+        .popular-post-area .single-popular-post .details h6 {
+            margin: 0 0 8px;
+            color: #49dff1;
+            font-size: 13px;
+        }
+
+        .popular-post-area .single-popular-post .details p {
+            margin: 0;
+            color: #aaa;
+            font-size: 12px;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .popular-post-area .owl-dots {
+            margin-top: 18px !important;
+            text-align: center;
+        }
+
+        /* Top Rated Job Posts: satu kartu sidebar yang rapi dan bisa digeser */
+        .single-slidebar .active-relatedjob-carusel {
+            width: 100%;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .single-slidebar .active-relatedjob-carusel .owl-stage {
+            display: flex;
+            align-items: stretch;
+        }
+
+        .single-slidebar .active-relatedjob-carusel .owl-item {
+            height: auto;
+        }
+
+        .single-slidebar .active-relatedjob-carusel .single-rated {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 18px;
+            overflow: hidden;
+            background: #f8f7ff;
+        }
+
+        .single-slidebar .active-relatedjob-carusel .single-rated > img {
+            display: block;
+            width: 100%;
+            height: 112px;
+            object-fit: cover;
+            margin: 0 0 16px;
+        }
+
+        .single-slidebar .active-relatedjob-carusel .single-rated h4 {
+            margin: 0 0 5px;
+            font-size: 16px;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
+        }
+
+        .single-slidebar .active-relatedjob-carusel .single-rated h6 {
+            margin: 0 0 10px;
+            font-size: 13px;
+        }
+
+        .single-slidebar .active-relatedjob-carusel .single-rated p {
+            margin: 0 0 10px;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .single-slidebar .active-relatedjob-carusel .single-rated h5 {
+            margin: 10px 0 7px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .single-slidebar .active-relatedjob-carusel .single-rated .btns {
+            display: inline-block;
+            position: static;
+            margin-top: 8px;
+            padding: 9px 15px;
+            line-height: 1.4;
+        }
+
+        .single-slidebar .active-relatedjob-carusel .owl-dots {
+            margin-top: 14px !important;
+            text-align: center;
+        }
+
+        @media (max-width: 767px) {
+            .popular-post-area { padding-top: 55px; }
+            .popular-post-area .single-popular-post {
+                gap: 14px;
+                min-height: 145px;
+                padding: 16px;
+            }
+            .popular-post-area .single-popular-post .details h4 { font-size: 14px; }
+            .popular-post-area .single-popular-post .details p { -webkit-line-clamp: 2; }
+        }
+    </style>
 </head>
 
 <body>
@@ -133,9 +364,9 @@ if (!$location_result || !$category_result || !$top_jobs_result) {
             <div class="banner-content col-lg-12">
 
                 <h1 class="text-white">
-                    <span>Let's Go!</span>
-                    Temukan Pekerjaan yang Sesuai dengan Keinginanmu di
-                    <span>Jabodetabek</span>!!
+                    <span><?php echo number_format($weekly_count); ?>+</span>
+                    Lowongan kerja untukmu di
+                    <span>Jabodetabek</span>
                 </h1>
 
                 <form action="search.php" method="GET" class="serach-form-area">
@@ -220,8 +451,8 @@ if (!$location_result || !$category_result || !$top_jobs_result) {
                             <select class="form-control" name="gaji">
                                 <option value="">Salary Range</option>
                                 <option value="0-1000000">Rp 0 - Rp 1.000.000</option>
-                                <option value="1000000-200000">Rp 1.000.000 - Rp 2000.000</option>
-                                <option value="200000-5000000">Rp 2000.000 - Rp 5.000.000</option>
+                                <option value="1000000-2000000">Rp 1.000.000 - Rp 2.000.000</option>
+                                <option value="2000000-5000000">Rp 2.000.000 - Rp 5.000.000</option>
                                 <option value="5000000-10000000">Rp 5.000.000 - Rp 10.000.000</option>
                                 <option value="10000000-20000000">Rp 10.000.000 - Rp 20.000.000</option>
                                 <option value="20000000+">Rp 20.000.000+</option>
@@ -289,6 +520,48 @@ if (!$location_result || !$category_result || !$top_jobs_result) {
 </section>
 
 
+<!-- POPULAR JOB POSTS -->
+<section class="popular-post-area pt-100">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="active-popular-post-carusel owl-carousel owl-theme">
+
+                <?php if (mysqli_num_rows($popular_jobs_result) > 0): ?>
+                    <?php $i = 1; ?>
+                    <?php while ($popular = mysqli_fetch_assoc($popular_jobs_result)): ?>
+                        <div class="single-popular-post d-flex flex-row">
+                            <div class="thumb">
+                                <img class="img-fluid"
+                                     src="img/<?php echo ($i % 2 == 0) ? 'p2.png' : 'p1.png'; ?>"
+                                     alt="Job">
+
+                                <a class="btns text-uppercase"
+                                   href="single.php?id=<?php echo (int) $popular['id']; ?>">
+                                    View Job Post
+                                </a>
+                            </div>
+
+                            <div class="details">
+                                <a href="single.php?id=<?php echo (int) $popular['id']; ?>">
+                                    <h4><?php echo htmlspecialchars($popular['judul_posisi']); ?></h4>
+                                </a>
+                                <h6><?php echo htmlspecialchars($popular['nama_perusahaan']); ?></h6>
+                                <p><?php echo htmlspecialchars($popular['deskripsi']); ?></p>
+                            </div>
+                        </div>
+                        <?php $i++; ?>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p>Belum ada lowongan pekerjaan tersedia.</p>
+                <?php endif; ?>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END POPULAR JOB POSTS -->
+
+
 <!-- FEATURED JOB CATEGORIES -->
 <section class="feature-cat-area pt-100" id="category">
     <div class="container">
@@ -305,31 +578,27 @@ if (!$location_result || !$category_result || !$top_jobs_result) {
         <div class="row">
 
             <?php
-            $featured_categories = [
-                'finance' => ['Accounting', 'o1.png'],
-                'development' => ['Development', 'o2.png'],
-                'technology' => ['Technology', 'o3.png'],
-                'media' => ['Media & News', 'o4.png'],
-                'healthcare' => ['Medical', 'o5.png'],
-                'government' => ['Government', 'o6.png']
-            ];
-
-            foreach ($featured_categories as $slug => $item):
+            $category_icons = ['o1.png', 'o2.png', 'o3.png', 'o4.png', 'o5.png', 'o6.png'];
+            $category_index = 0;
             ?>
 
-                <div class="col-lg-2 col-md-4 col-sm-6">
-                    <div class="single-fcat">
-
-                        <a href="category.php?kategori=<?php echo urlencode($slug); ?>">
-                            <img src="img/<?php echo htmlspecialchars($item[1]); ?>" alt="">
-                        </a>
-
-                        <p><?php echo htmlspecialchars($item[0]); ?></p>
-
+            <?php if (mysqli_num_rows($featured_category_result) > 0): ?>
+                <?php while ($featured_category = mysqli_fetch_assoc($featured_category_result)): ?>
+                    <div class="col-lg-2 col-md-4 col-sm-6">
+                        <div class="single-fcat">
+                            <a href="category.php?kategori=<?php echo urlencode($featured_category['kategori']); ?>">
+                                <img src="img/<?php echo $category_icons[$category_index % count($category_icons)]; ?>" alt="">
+                            </a>
+                            <p><?php echo htmlspecialchars($featured_category['kategori']); ?></p>
+                        </div>
                     </div>
+                    <?php $category_index++; ?>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <div class="col-12 text-center">
+                    <p>Belum ada kategori pekerjaan.</p>
                 </div>
-
-            <?php endforeach; ?>
+            <?php endif; ?>
 
         </div>
     </div>
@@ -477,7 +746,7 @@ if (!$location_result || !$category_result || !$top_jobs_result) {
 
                     <h4 class="heading">Top Rated Job Posts</h4>
 
-                    <div class="active-relatedjob-carusel">
+                    <div class="active-relatedjob-carusel owl-carousel owl-theme">
 
                         <?php if (mysqli_num_rows($top_jobs_result) > 0): ?>
 
@@ -767,6 +1036,47 @@ if (!$location_result || !$category_result || !$top_jobs_result) {
 <script src="js/parallax.min.js"></script>
 <script src="js/mail-script.js"></script>
 <script src="js/main.js"></script>
+
+<!-- Pastikan kedua carousel mengikuti perilaku slider template -->
+<script>
+    jQuery(function ($) {
+        // Slider dua kartu lowongan hitam di bawah kotak fitur
+        var popularSlider = $('.active-popular-post-carusel');
+        if (popularSlider.length && !popularSlider.hasClass('owl-loaded')) {
+            popularSlider.owlCarousel({
+                items: 2,
+                loop: true,
+                margin: 30,
+                nav: false,
+                dots: true,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                autoplayHoverPause: true,
+                smartSpeed: 600,
+                responsive: {
+                    0: { items: 1 },
+                    768: { items: 2 }
+                }
+            });
+        }
+
+        // Slider Top Rated Job Posts di sidebar
+        var relatedSlider = $('.active-relatedjob-carusel');
+        if (relatedSlider.length && !relatedSlider.hasClass('owl-loaded')) {
+            relatedSlider.owlCarousel({
+                items: 1,
+                loop: relatedSlider.children().length > 1,
+                margin: 0,
+                nav: false,
+                dots: true,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                autoplayHoverPause: true,
+                smartSpeed: 600
+            });
+        }
+    });
+</script>
 
 </body>
 </html>
