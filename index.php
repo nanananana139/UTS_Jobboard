@@ -291,6 +291,89 @@ if (!$location_result || !$category_result || !$featured_category_result || !$to
             text-align: center;
         }
 
+
+        /* Kartu lowongan terbaru (gaya ikon + tombol Apply) */
+        .job-card .thumb {
+            flex: 0 0 160px;
+            max-width: 160px;
+        }
+
+        .job-card .job-icon {
+            width: 82px;
+            height: 82px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f2f4f7;
+            border-radius: 8px;
+            margin-bottom: 18px;
+        }
+
+        .job-card .job-icon i {
+            font-size: 30px;
+            color: #49dff1;
+        }
+
+        .job-card .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .job-card .tags li { margin: 0; }
+
+        .job-card .tags li a {
+            display: inline-block;
+            padding: 8px 16px;
+            font-size: 13px;
+            color: #777;
+            background: #fff;
+            border: 1px solid #eee;
+        }
+
+        .job-card .title .btns {
+            display: flex;
+            align-items: flex-start;
+            gap: 4px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .job-card .title .btns li {
+            background: #fff;
+            border: 1px solid #eee;
+        }
+
+        .job-card .title .btns li a {
+            display: block;
+            padding: 12px 18px;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            color: #222;
+        }
+
+        .job-card .title .btns li.heart-btn a {
+            padding: 12px 14px;
+            color: #777;
+        }
+
+        .job-card .title .btns li.heart-btn a .fa-heart { color: #e74c3c; }
+
+        .job-card .title .btns li:hover { background: #49dff1; border-color: #49dff1; }
+        .job-card .title .btns li:hover a { color: #fff; }
+        .job-card .title .btns li.heart-btn:hover a .fa-heart { color: #fff; }
+
+        .job-card .job-desc {
+            text-transform: uppercase;
+            font-size: 13px;
+            color: #888;
+        }
+
         @media (max-width: 767px) {
             .popular-post-area { padding-top: 55px; }
             .popular-post-area .single-popular-post {
@@ -587,9 +670,9 @@ if (!$location_result || !$category_result || !$featured_category_result || !$to
                     <div class="col-lg-2 col-md-4 col-sm-6">
                         <div class="single-fcat">
                             <a href="category.php?kategori=<?php echo urlencode($featured_category['kategori']); ?>">
-                                <img src="img/<?php echo $category_icons[$category_index % count($category_icons)]; ?>" alt="">
+                                <img src="img/<?php echo $category_icons[$category_index % count($category_icons)]; ?>" alt="<?php echo htmlspecialchars($featured_category['kategori']); ?>">
                             </a>
-                            <p><?php echo htmlspecialchars($featured_category['kategori']); ?></p>
+                            <p><?php echo htmlspecialchars(ucwords(str_replace('-', ' ', $featured_category['kategori']))); ?></p>
                         </div>
                     </div>
                     <?php $category_index++; ?>
@@ -627,17 +710,55 @@ if (!$location_result || !$category_result || !$featured_category_result || !$to
 
                     <?php while ($job = mysqli_fetch_assoc($jobs_result)): ?>
 
-                        <div class="single-post d-flex flex-row">
+                        <?php
+                        // Ikon berdasarkan kategori (Font Awesome 4)
+                        $kat = strtolower(trim($job['kategori']));
+                        $icon = 'fa-briefcase';
+                        $icon_map = [
+                            'admin'      => 'fa-folder-open',
+                            'finance'    => 'fa-calculator',
+                            'keuangan'   => 'fa-calculator',
+                            'accounting' => 'fa-calculator',
+                            'design'     => 'fa-paint-brush',
+                            'desain'     => 'fa-paint-brush',
+                            'development'=> 'fa-code',
+                            'it'         => 'fa-code',
+                            'marketing'  => 'fa-bullhorn',
+                            'sales'      => 'fa-line-chart',
+                            'hr'         => 'fa-users',
+                            'engineering'=> 'fa-cogs',
+                            'education'  => 'fa-graduation-cap',
+                            'health'     => 'fa-heartbeat',
+                        ];
+                        foreach ($icon_map as $key => $ic) {
+                            if (strpos($kat, $key) !== false) { $icon = $ic; break; }
+                        }
+
+                        // Tag: pakai kolom "tags" (pisah koma) jika ada, kalau tidak pakai kategori
+                        $tags = [];
+                        if (!empty($job['tags'])) {
+                            $tags = array_filter(array_map('trim', explode(',', $job['tags'])));
+                        }
+                        if (empty($tags)) {
+                            $tags = [$job['kategori']];
+                        }
+                        ?>
+
+                        <div class="single-post d-flex flex-row job-card">
 
                             <div class="thumb">
-                                <img src="img/post.png" alt="Job">
+                                <div class="job-icon">
+                                    <i class="fa <?php echo $icon; ?>"></i>
+                                </div>
 
                                 <ul class="tags">
-                                    <li>
-                                        <a href="category.php?kategori=<?php echo urlencode($job['kategori']); ?>">
-                                            <?php echo htmlspecialchars($job['kategori']); ?>
-                                        </a>
-                                    </li>
+                                    <?php foreach ($tags as $tag): ?>
+                                        <li>
+                                            <a href="category.php?kategori=<?php echo urlencode($tag); ?>">
+                                                <?php echo htmlspecialchars($tag); ?>
+                                            </a>
+                                        </li>
+                                    <?php endforeach; ?>
                                 </ul>
                             </div>
 
@@ -654,40 +775,44 @@ if (!$location_result || !$category_result || !$featured_category_result || !$to
                                     </div>
 
                                     <ul class="btns">
+                                        <li class="heart-btn" title="Simpan lowongan">
+                                            <a href="#" onclick="this.querySelector('i').classList.toggle('fa-heart-o'); this.querySelector('i').classList.toggle('fa-heart'); return false;">
+                                                <i class="fa fa-heart-o"></i>
+                                            </a>
+                                        </li>
                                         <li>
                                             <a href="single.php?id=<?php echo (int) $job['id']; ?>">
-                                                Detail
+                                                Apply
                                             </a>
                                         </li>
                                     </ul>
 
                                 </div>
 
-                                <p>
+                                <p class="job-desc">
                                     <?php echo htmlspecialchars($job['deskripsi']); ?>
                                 </p>
 
                                 <h5>
                                     Job Nature:
-                                    <?php echo htmlspecialchars($job['tipe']); ?>
+                                    <?php echo htmlspecialchars(ucfirst($job['tipe'])); ?>
                                 </h5>
 
                                 <p class="address">
                                     <span class="lnr lnr-map"></span>
-                                    <?php echo htmlspecialchars($job['lokasi']); ?>
+                                    <?php echo htmlspecialchars(ucwords(str_replace('-', ' ', $job['lokasi']))); ?>
                                 </p>
 
                                 <p class="address">
                                     <span class="lnr lnr-database"></span>
-                                    Rp<?php echo number_format($job['gaji_min'], 0, ',', '.'); ?>
+                                    Rp <?php echo number_format($job['gaji_min'], 0, ',', '.'); ?>
                                     -
-                                    Rp<?php echo number_format($job['gaji_max'], 0, ',', '.'); ?>
+                                    Rp <?php echo number_format($job['gaji_max'], 0, ',', '.'); ?>
                                     / Bulan
                                 </p>
 
                             </div>
                         </div>
-
                     <?php endwhile; ?>
 
                 <?php else: ?>
