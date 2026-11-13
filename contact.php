@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		      </nav><!-- #nav-menu-container -->		    		
 	    	</div>
 	    </div>
-	</header><!-- #header -->
+ 	</header><!-- #header -->
 
 	<!-- start banner Area -->
 	<section class="banner-area relative" id="home">	

@@ -36,7 +36,7 @@ if (isset($_POST['register'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - JobBoard</title>
 
-   <link rel="stylesheet" href="css/linearicons.css">
+<link rel="stylesheet" href="css/linearicons.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
 
 <link rel="stylesheet" href="css/bootstrap.css">
@@ -82,7 +82,7 @@ body {
 				          <li><a class="ticker-btn" href="register.php">Signup</a></li>
 <li><a class="ticker-btn" href="login.php">Login</a></li>			          				          
 				        </ul>
-				      </nav><!-- #nav-menu-container -->		    		
+				    </nav><!-- #nav-menu-container -->		    		
 			    	</div>
 			    </div>
 <section class="banner-area relative" id="home">
@@ -90,7 +90,7 @@ body {
 
     <div class="container">
         <div class="row d-flex align-items-center justify-content-center"
-             style="min-height: 300px; padding-top: 80px;">
+            style="min-height: 300px; padding-top: 80px;">
             <div class="banner-content col-lg-12 text-center">
                 <h1 class="text-white">Register JobListing</h1>
 
