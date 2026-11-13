@@ -148,11 +148,39 @@ $query = mysqli_query($conn, "SELECT * FROM jobs ORDER BY id DESC");
             </div>
         </div>
     </div>
-
+    <!-- Modal Pilihan Menu Saat Pertama Masuk Dashboard -->
+    <div class="modal fade" id="modalMenuAdmin" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content text-center p-3">
+                <div class="modal-header border-0 justify-content-center">
+                    <h4 class="modal-title">Selamat Datang, <?= htmlspecialchars($_SESSION['admin']) ?>!</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted mb-4">Silakan pilih halaman pengelolaan yang ingin Anda buka:</p>
+                    <button type="button" class="genric-btn primary e-large btn-block radius mb-3" data-dismiss="modal">
+                        Kelola Lowongan Pekerjaan
+                    </button>
+                    <a href="data_pelamar.php" class="genric-btn info e-large btn-block radius">
+                        Lihat Data Pelamar Masuk
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>                                    
     <!-- JS Template untuk Modal -->
-    <script src="js/vendor/jquery-2.2.4.min.js"></script>
+<script src="js/vendor/jquery-2.2.4.min.js"></script>
     <script src="js/vendor/bootstrap.min.js"></script>
     <script>
+        $(document).ready(function() {
+            $('#modalMenuAdmin').modal('show');
+        });
+
+        function setHapusId(id, judul) {
+            document.getElementById('namaLowonganHapus').textContent = judul;
+            document.getElementById('btnKonfirmasiHapus').href = 'hapus_job.php?id=' + id;
+        }
+    </script>
+
         function setHapusId(id, judul) {
             document.getElementById('namaLowonganHapus').textContent = judul;
             document.getElementById('btnKonfirmasiHapus').href = 'hapus_job.php?id=' + id;
