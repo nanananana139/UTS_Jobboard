@@ -5,13 +5,13 @@ include 'koneksi.php';
 $pesan = "";
 
 if (isset($_POST['register'])) {
-    $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
-    $email = mysqli_real_escape_string($koneksi, $_POST['email']);
-    $no_hp = mysqli_real_escape_string($koneksi, $_POST['no_hp']);
+    $nama = mysqli_real_escape_string($conn, $_POST['nama']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $no_hp = mysqli_real_escape_string($conn, $_POST['no_hp']);
 
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    $cek_email = mysqli_query($koneksi, "SELECT * FROM users WHERE email='$email'");
+    $cek_email = mysqli_query($conn, "SELECT * FROM users WHERE email='$email'");
 
     if (mysqli_num_rows($cek_email) > 0) {
         $pesan = "Email sudah terdaftar!";
@@ -19,7 +19,7 @@ if (isset($_POST['register'])) {
         $query = "INSERT INTO users (nama, email, password, no_hp)
                   VALUES ('$nama', '$email', '$password', '$no_hp')";
 
-        if (mysqli_query($koneksi, $query)) {
+        if (mysqli_query($conn, $query)) {
             header("Location: login.php");
             exit;
         } else {

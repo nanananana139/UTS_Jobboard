@@ -10,7 +10,7 @@ if (isset($_POST['login'])) {
     $password = $_POST['password'];
 
     // Mengambil data user berdasarkan email
-    $stmt = mysqli_prepare($koneksi, "SELECT * FROM users WHERE email = ?");
+   $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE email = ?");
     mysqli_stmt_bind_param($stmt, "s", $email);
     mysqli_stmt_execute($stmt);
 
