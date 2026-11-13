@@ -16,7 +16,6 @@ if (!isset($_GET['id'])) {
 }
 
 $id = (int) $_GET['id'];
-
 // Hapus data lowongan
 $query = mysqli_prepare($conn, "DELETE FROM jobs WHERE id = ?");
 mysqli_stmt_bind_param($query, "i", $id);
