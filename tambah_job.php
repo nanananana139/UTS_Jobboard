@@ -36,7 +36,7 @@ if (isset($_POST['simpan'])) {
     );
 
     if (mysqli_stmt_execute($stmt)) {
-        header("Location: dashboard_admin.php");
+        header("Location: kelola_lowongan.php");
         exit;
     } else {
         $error = "Gagal menambahkan lowongan!";
@@ -60,15 +60,18 @@ if (isset($_POST['simpan'])) {
     <header id="header">
         <div class="container">
             <div class="row align-items-center justify-content-between d-flex">
-            <div id="logo">
-                <a href="index.php"><img src="img/logo.png" alt="" title="" /></a>
-            </div>
-            <nav id="nav-menu-container">
-                <ul class="nav-menu">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="dashboard_admin.php">Dashboard Admin</a></li>
-                </ul>
-            </nav>
+                <div id="logo">
+                    <a href="index.php"><img src="img/logo.png" alt="JobBoard" title="" /></a>
+                </div>
+                <nav id="nav-menu-container">
+                    <ul class="nav-menu">
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="dashboard_admin.php">Dashboard Admin</a></li>
+                        <li class="menu-active"><a href="kelola_lowongan.php">Kelola Lowongan</a></li>
+                        <li><a href="data_pelamar.php">Data Pelamar</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#modalLogout">Logout</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </header>
@@ -79,7 +82,7 @@ if (isset($_POST['simpan'])) {
             <div class="row d-flex align-items-center justify-content-center">
                 <div class="about-content col-lg-12">
                     <h1 class="text-white">Tambah Lowongan Baru</h1>
-                    <p class="text-white link-nav"><a href="dashboard_admin.php">Dashboard Admin </a> <span class="lnr lnr-arrow-right"></span> <a href="tambah_job.php"> Tambah Lowongan</a></p>
+                    <p class="text-white link-nav"><a href="kelola_lowongan.php">Kelola Lowongan </a> <span class="lnr lnr-arrow-right"></span> <a href="tambah_job.php"> Tambah Lowongan</a></p>
                 </div>                                          
             </div>
         </div>
@@ -156,12 +159,35 @@ if (isset($_POST['simpan'])) {
                         </div>
 
                         <button type="submit" name="simpan" class="genric-btn primary e-large btn-block mt-20">Simpan Lowongan</button>
-                        <a href="dashboard_admin.php" class="genric-btn default e-large btn-block mt-10">Kembali</a>
+                        <a href="kelola_lowongan.php" class="genric-btn default e-large btn-block mt-10">Kembali</a>
                     </form>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Modal Konfirmasi Logout -->
+    <div class="modal fade" id="modalLogout" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Konfirmasi Logout</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Yakin ingin keluar dari halaman ini?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <a href="logout_admin.php" class="btn btn-danger">Ya, Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
 </body>
 </html>

@@ -9,7 +9,7 @@ if (!isset($_SESSION['admin'])) {
 }
 
 // Ambil semua data lowongan
-$query = mysqli_query($conn, "SELECT * FROM jobs ORDER BY id DESC");
+$jml_job = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FROM jobs"))['total'];
 ?>
 
 <!DOCTYPE html>
@@ -32,8 +32,7 @@ $query = mysqli_query($conn, "SELECT * FROM jobs ORDER BY id DESC");
 </head>
 
 <body>
-
-    <!-- Header Template -->
+<!-- Header Template -->
     <header id="header">
         <div class="container">
             <div class="row align-items-center justify-content-between d-flex">
@@ -44,13 +43,14 @@ $query = mysqli_query($conn, "SELECT * FROM jobs ORDER BY id DESC");
                     <ul class="nav-menu">
                         <li><a href="index.php">Home</a></li>
                         <li class="menu-active"><a href="dashboard_admin.php">Dashboard Admin</a></li>
-                        <li><a href="logout.php" class="text-danger">Logout</a></li>
+                        <li><a href="kelola_lowongan.php">Kelola Lowongan</a></li>
+                        <li><a href="data_pelamar.php">Data Pelamar</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#modalLogout">Logout</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
     </header>
-
     <!-- Banner Template -->
     <section class="banner-area relative" id="home">
         <div class="overlay overlay-bg"></div>
@@ -58,134 +58,82 @@ $query = mysqli_query($conn, "SELECT * FROM jobs ORDER BY id DESC");
             <div class="row d-flex align-items-center justify-content-center" style="min-height: 280px; padding-top: 80px;">
                 <div class="about-content col-lg-12 text-center">
                     <h1 class="text-white">JobBoard - Dashboard Admin</h1>
-                    <p class="text-white">Selamat datang, <strong><?= htmlspecialchars($_SESSION['admin']) ?></strong></p>
+                    <p class="text-white">Selamat datang, <strong><?= htmlspecialchars($_SESSION['admin']) ?></strong> — Silakan pilih menu di bawah</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Konten Utama -->
+<!-- Konten Pilihan Menu -->
     <section class="post-area section-gap">
         <div class="container">
-            <div class="bg-white p-4 rounded shadow-sm">
-                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
-                    <h3 class="mb-2 mb-md-0">Kelola Lowongan Pekerjaan</h3>
-                    <a href="tambah_job.php" class="genric-btn primary radius">
-                        + Tambah Lowongan
-                    </a>
+            <div class="row justify-content-center">
+
+                <!-- Opsi 1: Kelola Lowongan -->
+                <div class="col-md-5 mb-4">
+                    <div class="bg-white p-4 rounded shadow-sm text-center h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="mb-3">
+                                <span class="lnr lnr-briefcase" style="font-size: 46px; color: #49e4fa;"></span>
+                            </div>
+                            <h3 class="mb-2">Kelola Lowongan</h3>
+                            <p class="text-muted mb-3">
+                                Tambah, edit, atau hapus daftar lowongan pekerjaan yang tersedia di website.
+                            </p>
+                            <p class="mb-4">
+                                <span class="badge badge-info px-3 py-2">Total Lowongan: <?= $jml_job ?></span>
+                            </p>
+                        </div>
+                        <a href="kelola_lowongan.php" class="genric-btn primary e-large btn-block radius">
+                            Masuk ke Kelola Lowongan
+                        </a>
+                    </div>
                 </div>
 
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover align-middle">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>No</th>
-                                <th>Posisi</th>
-                                <th>Perusahaan</th>
-                                <th>Lokasi</th>
-                                <th>Kategori</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $no = 1;
-                            while ($job = mysqli_fetch_assoc($query)):
-                            ?>
-                            <tr>
-                                <td><?= $no++ ?></td>
-                                <td><strong><?= htmlspecialchars($job['judul_posisi']) ?></strong></td>
-                                <td><?= htmlspecialchars($job['nama_perusahaan']) ?></td>
-                                <td><?= htmlspecialchars($job['lokasi']) ?></td>
-                                <td><?= htmlspecialchars($job['kategori']) ?></td>
-                                <td>
-                                    <?php if ($job['status'] == 'Buka'): ?>
-                                        <span class="badge badge-success px-2 py-1"><?= htmlspecialchars($job['status']) ?></span>
-                                    <?php else: ?>
-                                        <span class="badge badge-secondary px-2 py-1"><?= htmlspecialchars($job['status']) ?></span>
-                                    <?php endif; ?>
-                                </td>
-                                <td style="white-space: nowrap;">
-                                    <a href="edit_job.php?id=<?= $job['id'] ?>" class="btn btn-warning btn-sm text-white">
-                                        Edit
-                                    </a>
-
-                                    <button type="button"
-                                            class="btn btn-danger btn-sm"
-                                            data-toggle="modal"
-                                            data-target="#modalHapus"
-                                            onclick="setHapusId(<?= $job['id'] ?>, '<?= htmlspecialchars(addslashes($job['judul_posisi'])) ?>')">
-                                        Hapus
-                                    </button>
-                                </td>
-                            </tr>
-                            <?php endwhile; ?>
-                        </tbody>
-                    </table>
+                <!-- Opsi 2: Data Pelamar -->
+                <div class="col-md-5 mb-4">
+                    <div class="bg-white p-4 rounded shadow-sm text-center h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="mb-3">
+                                <span class="lnr lnr-users" style="font-size: 46px; color: #49e4fa;"></span>
+                            </div>
+                            <h3 class="mb-2">Data Pelamar Masuk</h3>
+                            <p class="text-muted mb-4">
+                                Lihat daftar pelamar yang sudah mengirimkan lamaran ke lowongan pekerjaan.
+                            </p>
+                        </div>
+                        <a href="data_pelamar.php" class="genric-btn info e-large btn-block radius">
+                            Lihat Data Pelamar
+                        </a>
+                    </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Modal Konfirmasi Hapus (UI Bawaan Web) -->
-    <div class="modal fade" id="modalHapus" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Modal Konfirmasi Logout -->
+    <div class="modal fade" id="modalLogout" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Konfirmasi Hapus Lowongan</h5>
+                    <h5 class="modal-title">Konfirmasi Logout</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Yakin ingin menghapus lowongan <strong id="namaLowonganHapus"></strong>?
+                    Yakin ingin keluar dari halaman ini?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <a id="btnKonfirmasiHapus" href="#" class="btn btn-danger">Ya, Hapus</a>
+                    <a href="logout_admin.php" class="btn btn-danger">Ya, Logout</a>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Modal Pilihan Menu Saat Pertama Masuk Dashboard -->
-    <div class="modal fade" id="modalMenuAdmin" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content text-center p-3">
-                <div class="modal-header border-0 justify-content-center">
-                    <h4 class="modal-title">Selamat Datang, <?= htmlspecialchars($_SESSION['admin']) ?>!</h4>
-                </div>
-                <div class="modal-body">
-                    <p class="text-muted mb-4">Silakan pilih halaman pengelolaan yang ingin Anda buka:</p>
-                    <button type="button" class="genric-btn primary e-large btn-block radius mb-3" data-dismiss="modal">
-                        Kelola Lowongan Pekerjaan
-                    </button>
-                    <a href="data_pelamar.php" class="genric-btn info e-large btn-block radius">
-                        Lihat Data Pelamar Masuk
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>                                    
-    <!-- JS Template untuk Modal -->
-<script src="js/vendor/jquery-2.2.4.min.js"></script>
+
+    <script src="js/vendor/jquery-2.2.4.min.js"></script>
     <script src="js/vendor/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#modalMenuAdmin').modal('show');
-        });
-
-        function setHapusId(id, judul) {
-            document.getElementById('namaLowonganHapus').textContent = judul;
-            document.getElementById('btnKonfirmasiHapus').href = 'hapus_job.php?id=' + id;
-        }
-    </script>
-
-        function setHapusId(id, judul) {
-            document.getElementById('namaLowonganHapus').textContent = judul;
-            document.getElementById('btnKonfirmasiHapus').href = 'hapus_job.php?id=' + id;
-        }
-    </script>
-
 </body>
 </html>
