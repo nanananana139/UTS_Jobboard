@@ -1,5 +1,38 @@
-
 <?php
+require 'auth.php';
+function getCategoryIcon($category) {
+    switch (strtolower($category)) {
+        case 'technology':          return 'fa-laptop';
+        case 'business':            return 'fa-briefcase';
+        case 'administration':      return 'fa-folder-open';
+        case 'finance':             return 'fa-calculator';
+        case 'marketing':           return 'fa-bullhorn';
+        case 'sales':               return 'fa-line-chart';
+        case 'human-resources':     return 'fa-users';
+        case 'design':              return 'fa-paint-brush';
+        case 'development':         return 'fa-code';
+        case 'customer-service':    return 'fa-headphones';
+        case 'education':           return 'fa-graduation-cap';
+        case 'healthcare':          return 'fa-medkit';
+        case 'engineering':         return 'fa-cogs';
+        case 'manufacturing':       return 'fa-industry';
+        case 'logistics':           return 'fa-truck';
+        case 'warehouse':           return 'fa-archive';
+        case 'construction':        return 'fa-building';
+        case 'hospitality':         return 'fa-bed';
+        case 'food-beverage':       return 'fa-cutlery';
+        case 'retail':              return 'fa-shopping-cart';
+        case 'transportation':      return 'fa-car';
+        case 'legal':               return 'fa-balance-scale';
+        case 'media':               return 'fa-newspaper-o';
+        case 'content-creator':     return 'fa-camera';
+        case 'security':            return 'fa-shield';
+        case 'cleaning':            return 'fa-wrench';
+        case 'freelance':           return 'fa-globe';
+        case 'internship':          return 'fa-graduation-cap';
+        default:                    return 'fa-briefcase';
+    }
+}
 include 'koneksi.php';
 
 // Mengambil data dari form pencarian
@@ -109,34 +142,61 @@ $result = mysqli_stmt_get_result($stmt);
     <link rel="stylesheet" href="css/owl.carousel.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        #header {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999 !important;
+            background-color: rgba(124, 105, 239, 0.95) !important; /* Warna ungu berlatar */
+            backdrop-filter: blur(8px);
+            padding: 15px 0 !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- Header -->
-<header id="header">
-    <div class="container">
-        <div class="row align-items-center justify-content-between d-flex">
+    <!-- HEADER -->
+    <header id="header">
+        <div class="container">
+            <div class="row align-items-center justify-content-between d-flex">
 
-            <div id="logo">
-                <a href="index.php">
-                    <img src="img/logo.png" alt="JobBoard">
-                </a>
+                <div id="logo">
+                    <a href="home.php">
+                        <img src="img/logo.png" alt="Jobboard">
+                    </a>
+                </div>
+
+                <nav id="nav-menu-container">
+                    <ul class="nav-menu">
+                        <li >
+                            <a href="home.php">Home</a>
+                        </li>
+
+                        <li>
+                            <a href="about-us.php">About Us</a>
+                        </li>
+
+                        <li>
+                            <a href="category.php">Category</a>
+                        </li>
+
+                        <li class="menu-active">
+                            <a href="search.php">Search</a>
+                        </li>
+
+                        <li>
+                            <a href="logout.php" class="ticker-btn">Logout</a>
+                        </li>
+                    </ul>
+                </nav>
+
             </div>
-
-            <nav id="nav-menu-container">
-                <ul class="nav-menu">
-                    <li><a href="index.php">Home</a></li>
-                    <li class="menu-active"><a href="search.php">Cari Lowongan</a></li>
-                    <li><a href="category.php">Kategori</a></li>
-                    <li><a href="login.php">Login</a></li>
-                    <li><a class="ticker-btn" href="register.php">Daftar</a></li>
-                </ul>
-            </nav>
-
         </div>
-    </div>
-</header>
+    </header>
 
 <!-- Banner -->
 <section class="banner-area relative">
@@ -276,7 +336,9 @@ $result = mysqli_stmt_get_result($stmt);
 
 						<div class="single-post d-flex flex-row">
 							<div class="thumb">
-								<img src="img/post.png" alt="Lowongan Pekerjaan">
+                                <div style="width: 80px; height: 80px; background-color: #f4f5f8; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fa <?php echo getCategoryIcon($job['kategori']); ?>" style="font-size: 32px; color: #49e4fa;"></i>
+                                </div>
 							</div>
 
 							<div class="details">
@@ -365,24 +427,6 @@ $result = mysqli_stmt_get_result($stmt);
                     </ul>
                 </div>
 
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Call to Action -->
-<section class="callto-action-area section-gap">
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="menu-content col-lg-9">
-                <div class="title text-center">
-                    <h1 class="mb-10 text-white">Mulai Temukan Pekerjaan Impianmu!</h1>
-                    <p class="text-white">
-                        Jelajahi berbagai peluang kerja dan temukan pekerjaan yang sesuai dengan kemampuan serta minatmu.
-                    </p>
-                    <a class="primary-btn" href="register.php">Daftar Sekarang</a>
-                    <a class="primary-btn" href="login.php">Login</a>
-                </div>
             </div>
         </div>
     </div>

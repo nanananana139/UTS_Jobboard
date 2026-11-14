@@ -29,6 +29,19 @@ $jml_job = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FROM
     <link rel="stylesheet" href="css/animate.min.css">
     <link rel="stylesheet" href="css/owl.carousel.css">
     <link rel="stylesheet" href="css/main.css">
+    <style>
+        #header {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999 !important;
+            background-color: rgba(124, 105, 239, 0.95) !important; /* Warna ungu berlatar */
+            backdrop-filter: blur(8px);
+            padding: 15px 0 !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -41,7 +54,6 @@ $jml_job = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FROM
                 </div>
                 <nav id="nav-menu-container">
                     <ul class="nav-menu">
-                        <li><a href="index.php">Home</a></li>
                         <li class="menu-active"><a href="dashboard_admin.php">Dashboard Admin</a></li>
                         <li><a href="kelola_lowongan.php">Kelola Lowongan</a></li>
                         <li><a href="data_pelamar.php">Data Pelamar</a></li>

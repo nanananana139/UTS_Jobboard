@@ -26,6 +26,19 @@ $query = mysqli_query($conn, "SELECT * FROM jobs ORDER BY id DESC");
     <link rel="stylesheet" href="css/animate.min.css">
     <link rel="stylesheet" href="css/owl.carousel.css">
     <link rel="stylesheet" href="css/main.css">
+    <style>
+        #header {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999 !important;
+            background-color: rgba(124, 105, 239, 0.95) !important; /* Warna ungu berlatar */
+            backdrop-filter: blur(8px);
+            padding: 15px 0 !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -35,11 +48,10 @@ $query = mysqli_query($conn, "SELECT * FROM jobs ORDER BY id DESC");
         <div class="container">
             <div class="row align-items-center justify-content-between d-flex">
                 <div id="logo">
-                    <a href="index.php"><img src="img/logo.png" alt="JobBoard" title="" /></a>
+                    <a href="home.php"><img src="img/logo.png" alt="JobBoard" title="" /></a>
                 </div>
                 <nav id="nav-menu-container">
                     <ul class="nav-menu">
-                        <li><a href="index.php">Home</a></li>
                         <li><a href="dashboard_admin.php">Dashboard Admin</a></li>
                         <li class="menu-active"><a href="kelola_lowongan.php">Kelola Lowongan</a></li>
                         <li><a href="data_pelamar.php">Data Pelamar</a></li>

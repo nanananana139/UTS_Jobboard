@@ -1,8 +1,8 @@
 <?php
-session_start();
+require 'auth.php';
 ?>
 <!DOCTYPE html>
-<html lang="zxx" class="no-js">
+<html lang="id" class="no-js">
 <head>
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,7 +17,7 @@ session_start();
     <!-- meta character set -->
     <meta charset="UTF-8">
     <!-- Site Title -->
-    <title>CareerSpace - Find Your Next Job</title>
+    <title>JobBoard - About Us</title>
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
     <!-- CSS ============================================= -->
@@ -29,41 +29,60 @@ session_start();
     <link rel="stylesheet" href="css/animate.min.css">
     <link rel="stylesheet" href="css/owl.carousel.css">
     <link rel="stylesheet" href="css/main.css">
+    <style>
+        #header {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999 !important;
+            background-color: rgba(124, 105, 239, 0.95) !important; /* Warna ungu berlatar */
+            backdrop-filter: blur(8px);
+            padding: 15px 0 !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+        }
+    </style>
 </head>
 <body>
 
-    <header id="header" id="home">
+    <!-- HEADER -->
+    <header id="header">
         <div class="container">
             <div class="row align-items-center justify-content-between d-flex">
-            <div id="logo">
-                <a href="index.php"><img src="img/logo.png" alt="" title="" /></a>
-            </div>
-            <nav id="nav-menu-container">
-                <ul class="nav-menu">
-                <li class="menu-active"><a href="index.php">Home</a></li>
-                <li><a href="about-us.php">About Us</a></li>
-                <li><a href="category.php">Categories</a></li>
-                <li><a href="price.php">Pricing</a></li>
-                <li><a href="contact.php">Contact</a></li>
-                <li class="menu-has-children"><a href="">Pages</a>
-                    <ul>
-                        <li><a href="search.php">Search Jobs</a></li>
-                        <li><a href="single.php">single</a></li>
 
+                <div id="logo">
+                    <a href="home.php">
+                        <img src="img/logo.png" alt="Jobboard">
+                    </a>
+                </div>
+
+                <nav id="nav-menu-container">
+                    <ul class="nav-menu">
+                        <li>
+                            <a href="home.php">Home</a>
+                        </li>
+
+                        <li class="menu-active">
+                            <a href="about-us.php">About Us</a>
+                        </li>
+
+                        <li>
+                            <a href="category.php">Category</a>
+                        </li>
+
+                        <li>
+                            <a href="search.php">Search</a>
+                        </li>
+
+                        <li>
+                            <a href="logout.php" class="ticker-btn">Logout</a>
+                        </li>
                     </ul>
-                </li>
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <li><a class="ticker-btn" href="logout.php">Logout</a></li>
-                <?php else: ?>
-                    <li><a class="ticker-btn" href="register.php">Sign Up</a></li>
-                    <li><a class="ticker-btn" href="login.php">Login</a></li>
-                <?php endif; ?>
-                </ul>
-            </nav><!-- #nav-menu-container -->                    
+                </nav>
+
             </div>
         </div>
-    </header><!-- #header -->
-
+    </header>
 
     <!-- start banner Area -->
     <section class="banner-area relative" id="home">    
@@ -74,7 +93,7 @@ session_start();
                     <h1 class="text-white">
                         Empowering Your Career Journey        
                     </h1>   
-                    <p class="text-white link-nav"><a href="index.php">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="about-us.php"> About Us</a></p>
+                    <p class="text-white link-nav"><a href="home.php">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="about-us.php"> About Us</a></p>
                 </div>                                                                        
             </div>
         </div>
@@ -256,8 +275,8 @@ session_start();
                     <div class="title text-center">
                         <h1 class="mb-10 text-white">Find Your Next Opportunity Today!</h1>
                         <p class="text-white">Top companies are actively hiring talent like you. Take the next step in your career path!</p>
-                        <a class="primary-btn" href="#">Explore Open Roles </a>
-                        <a class="primary-btn" href="#">Post a Job </a>
+                        <a class="primary-btn" href="search.php">Explore Open Roles </a>
+                        <a class="primary-btn" href="category.php">Browse Categories </a>
                     </div>
                 </div>
             </div>  
@@ -341,35 +360,17 @@ session_start();
                     <div class="single-footer-widget">
                         <h6>Job Categories</h6>
                         <ul class="footer-nav">
-                            <li><a href="#">Technology & IT</a></li>
-                            <li><a href="#">Creative & Design</a></li>
-                            <li><a href="#">Marketing & Media</a></li>
-                            <li><a href="#">Finance & Admin</a></li>
+                            <li><a href="category.php?category=technology">Technology & IT</a></li>
+                            <li><a href="category.php?category=design">Creative & Design</a></li>
+                            <li><a href="category.php?category=marketing">Marketing & Media</a></li>
+                            <li><a href="category.php?category=finance">Finance & Admin</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-6  col-md-12">
                     <div class="single-footer-widget newsletter">
-                        <h6>Get Job Alerts</h6>
-                        <p>Receive fresh job vacancies, interview tips, and market insights delivered straight to your inbox!</p>
-                        <div id="mc_embed_signup">
-                            <form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="form-inline">
-
-                                <div class="form-group row" style="width: 100%">
-                                    <div class="col-lg-8 col-md-12">
-                                        <input name="EMAIL" placeholder="Enter your email address..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your email address... '" required="" type="email">
-                                        <div style="position: absolute; left: -5000px;">
-                                            <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
-                                        </div>
-                                    </div> 
-                                
-                                    <div class="col-lg-4 col-md-12">
-                                        <button class="nw-btn primary-btn">Subscribe<span class="lnr lnr-arrow-right"></span></button>
-                                    </div> 
-                                </div>      
-                                <div class="info"></div>
-                            </form>
-                        </div>      
+                        <h6>About JobBoard</h6>
+                        <p>JobBoard membantu pencari kerja menemukan peluang karier di wilayah Jabodetabek. Jelajahi lowongan terbaru dan temukan pekerjaan yang sesuai dengan keahlianmu.</p>
                     </div>
                 </div>
                 <div class="col-lg-3  col-md-12">
@@ -409,7 +410,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/vendor/jquery-2.2.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="js/vendor/bootstrap.min.js"></script>          
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
     <script src="js/easing.min.js"></script>            
     <script src="js/hoverIntent.js"></script>
     <script src="js/superfish.min.js"></script> 

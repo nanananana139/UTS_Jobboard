@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 include 'koneksi.php';
@@ -8,41 +9,131 @@ if (!isset($_SESSION['admin'])) {
     exit;
 }
 
+// Ambil kategori langsung dari database
+$categories = [];
+$queryCategories = mysqli_query(
+    $conn,
+    "SELECT id, category_name FROM categories ORDER BY category_name ASC"
+);
+
+if (!$queryCategories) {
+    die("Gagal mengambil kategori: " . mysqli_error($conn));
+}
+
+while ($row = mysqli_fetch_assoc($queryCategories)) {
+    $categories[] = $row;
+}
+
+// Mengubah nama kategori menjadi format lama
+// agar tetap kompatibel dengan kode website yang sudah ada
+function categoryToSlug($name) {
+    $mapping = [
+        'IT & Software' => 'technology',
+        'Customer Service' => 'customer-service',
+        'Human Resources' => 'human-resources',
+        'Content Creator' => 'content-creator',
+        'Food & Beverage' => 'food-beverage'
+    ];
+
+    if (isset($mapping[$name])) {
+        return $mapping[$name];
+    }
+
+    return strtolower(str_replace(' ', '-', trim($name)));
+}
+
+$lokasi_list = [
+    'jakarta-pusat', 'jakarta-utara', 'jakarta-barat',
+    'jakarta-selatan', 'jakarta-timur', 'bogor',
+    'depok', 'bekasi', 'tangerang', 'tangerang-selatan',
+    'kabupaten-bogor', 'kabupaten-bekasi',
+    'kabupaten-tangerang'
+];
+
 $error = "";
 
 if (isset($_POST['simpan'])) {
-    $judul       = $_POST['judul_posisi'];
-    $perusahaan  = $_POST['nama_perusahaan'];
-    $deskripsi   = $_POST['deskripsi'];
-    $persyaratan = $_POST['persyaratan'];
+
+    $judul       = trim($_POST['judul_posisi']);
+    $perusahaan  = trim($_POST['nama_perusahaan']);
+    $deskripsi   = trim($_POST['deskripsi']);
+    $persyaratan = trim($_POST['persyaratan']);
     $lokasi      = $_POST['lokasi'];
-    $kategori    = $_POST['kategori'];
+    $category_id = (int) $_POST['category_id'];
     $tipe        = $_POST['tipe'];
-    $gaji_min    = $_POST['gaji_min'];
-    $gaji_max    = $_POST['gaji_max'];
+    $gaji_min    = (float) $_POST['gaji_min'];
+    $gaji_max    = (float) $_POST['gaji_max'];
     $status      = $_POST['status'];
 
-    $query = "INSERT INTO jobs
-    (judul_posisi, nama_perusahaan, deskripsi, persyaratan,
-    lokasi, kategori, tipe, gaji_min, gaji_max, status)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-    $stmt = mysqli_prepare($conn, $query);
-
-    mysqli_stmt_bind_param(
-        $stmt, "sssssssdds",
-        $judul, $perusahaan, $deskripsi, $persyaratan,
-        $lokasi, $kategori, $tipe, $gaji_min, $gaji_max, $status
-    );
-
-    if (mysqli_stmt_execute($stmt)) {
-        header("Location: kelola_lowongan.php");
-        exit;
+    // Validasi lokasi
+    if (!in_array($lokasi, $lokasi_list, true)) {
+        $error = "Lokasi tidak valid.";
     } else {
-        $error = "Gagal menambahkan lowongan!";
+
+        // Pastikan kategori tersedia di database
+        $checkCategory = mysqli_prepare(
+            $conn,
+            "SELECT category_name FROM categories WHERE id = ?"
+        );
+
+        mysqli_stmt_bind_param($checkCategory, "i", $category_id);
+        mysqli_stmt_execute($checkCategory);
+
+        $categoryResult = mysqli_stmt_get_result($checkCategory);
+        $categoryData = mysqli_fetch_assoc($categoryResult);
+
+        if (!$categoryData) {
+            $error = "Kategori tidak ditemukan.";
+        } else {
+
+            // Simpan nama kategori dalam format lama
+            $kategori = categoryToSlug($categoryData['category_name']);
+
+            $query = "INSERT INTO jobs
+                (
+                    judul_posisi,
+                    nama_perusahaan,
+                    deskripsi,
+                    persyaratan,
+                    lokasi,
+                    kategori,
+                    category_id,
+                    tipe,
+                    gaji_min,
+                    gaji_max,
+                    status
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            $stmt = mysqli_prepare($conn, $query);
+
+            mysqli_stmt_bind_param(
+                $stmt,
+                "ssssssiddds",
+                $judul,
+                $perusahaan,
+                $deskripsi,
+                $persyaratan,
+                $lokasi,
+                $kategori,
+                $category_id,
+                $tipe,
+                $gaji_min,
+                $gaji_max,
+                $status
+            );
+
+            if (mysqli_stmt_execute($stmt)) {
+                header("Location: kelola_lowongan.php");
+                exit;
+            } else {
+                $error = "Gagal menambahkan lowongan: " . mysqli_stmt_error($stmt);
+            }
+        }
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="id" class="no-js">
 <head>
@@ -54,6 +145,19 @@ if (isset($_POST['simpan'])) {
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
+    <style>
+        #header {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999 !important;
+            background-color: rgba(124, 105, 239, 0.95) !important; /* Warna ungu berlatar */
+            backdrop-filter: blur(8px);
+            padding: 15px 0 !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+        }
+    </style>
 </head>
 <body>
 
@@ -93,7 +197,7 @@ if (isset($_POST['simpan'])) {
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <?php if ($error != ""): ?>
-                        <div class="alert alert-danger"><?= $error; ?></div>
+                        <div class="alert alert-danger"><?= htmlspecialchars($error); ?></div>
                     <?php endif; ?>
                     
                     <form action="" method="POST" class="form-wrap">
@@ -121,12 +225,28 @@ if (isset($_POST['simpan'])) {
 
                         <div class="form-group">
                             <label><strong>Lokasi</strong></label>
-                            <input type="text" name="lokasi" class="form-control" placeholder="Contoh: jakarta-selatan" required>
+                            <select name="lokasi" class="form-control" required>
+                                <option value="">Pilih Kategori</option>
+                                <?php foreach ($lokasi_list as $l): ?>
+                                    <option value="<?= htmlspecialchars($l) ?>">
+                                        <?= htmlspecialchars(ucwords(str_replace('-', ' ', $l))) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
 
                         <div class="form-group">
                             <label><strong>Kategori</strong></label>
-                            <input type="text" name="kategori" class="form-control" placeholder="Contoh: design / development / finance" required>
+                            <select name="category_id" class="form-control" required>
+                                <option value="">Pilih Kategori</option>
+
+                                <?php foreach ($categories as $category): ?>
+                                    <option value="<?= (int) $category['id'] ?>">
+                                        <?= htmlspecialchars($category['category_name']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+
+                            </select>
                         </div>
 
                         <div class="form-group">

@@ -1,22 +1,56 @@
 <?php
-// Menghubungkan halaman dengan database
-include 'koneksi.php';
+require 'auth.php';
+function getCategoryIcon($category) {
+    switch (strtolower($category)) {
+        case 'technology':          return 'fa-laptop';
+        case 'business':            return 'fa-briefcase';
+        case 'administration':      return 'fa-folder-open';
+        case 'finance':             return 'fa-calculator';
+        case 'marketing':           return 'fa-bullhorn';
+        case 'sales':               return 'fa-line-chart';
+        case 'human-resources':     return 'fa-users';
+        case 'design':              return 'fa-paint-brush';
+        case 'development':         return 'fa-code';
+        case 'customer-service':    return 'fa-headphones';
+        case 'education':           return 'fa-graduation-cap';
+        case 'healthcare':          return 'fa-medkit';
+        case 'engineering':         return 'fa-cogs';
+        case 'manufacturing':       return 'fa-industry';
+        case 'logistics':           return 'fa-truck';
+        case 'warehouse':           return 'fa-archive';
+        case 'construction':        return 'fa-building';
+        case 'hospitality':         return 'fa-bed';
+        case 'food-beverage':       return 'fa-cutlery';
+        case 'retail':              return 'fa-shopping-cart';
+        case 'transportation':      return 'fa-car';
+        case 'legal':               return 'fa-balance-scale';
+        case 'media':               return 'fa-newspaper-o';
+        case 'content-creator':     return 'fa-camera';
+        case 'security':            return 'fa-shield';
+        case 'cleaning':            return 'fa-wrench';
+        case 'freelance':           return 'fa-globe';
+        case 'internship':          return 'fa-graduation-cap';
+        default:                    return 'fa-briefcase';
+    }
+}
+include_once 'koneksi.php';
 
 // Mengambil ID lowongan dari URL
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
-// Mengambil data lowongan berdasarkan ID
-$stmt = mysqli_prepare($conn, "SELECT * FROM jobs WHERE id = ?");
-
+// Mengambil data lowongan (hanya yang masih dibuka)
+$stmt = mysqli_prepare($conn, "SELECT * FROM jobs WHERE id = ? AND status = 'Buka'");
 mysqli_stmt_bind_param($stmt, "i", $id);
 mysqli_stmt_execute($stmt);
 
 $result = mysqli_stmt_get_result($stmt);
 $job = mysqli_fetch_assoc($result);
+mysqli_stmt_close($stmt);
 
 // Mengecek apakah lowongan ditemukan
 if (!$job) {
-    die("Lowongan pekerjaan tidak ditemukan.");
+    http_response_code(404);
+    die("Lowongan pekerjaan tidak ditemukan atau sudah ditutup. <a href='search.php'>Kembali ke daftar lowongan</a>");
 }
 ?>
 
@@ -41,25 +75,55 @@ if (!$job) {
     <link rel="stylesheet" href="css/animate.min.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        #header {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999 !important;
+            background-color: rgba(124, 105, 239, 0.95) !important; /* Warna ungu berlatar */
+            backdrop-filter: blur(8px);
+            padding: 15px 0 !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- Header -->
+    <!-- HEADER -->
     <header id="header">
         <div class="container">
             <div class="row align-items-center justify-content-between d-flex">
 
                 <div id="logo">
-                    <a href="index.php">
+                    <a href="home.php">
                         <img src="img/logo.png" alt="JobBoard">
                     </a>
                 </div>
 
                 <nav id="nav-menu-container">
                     <ul class="nav-menu">
-                        <li><a href="index.php">Home</a></li>
-                        <li><a href="search.php">Cari Lowongan</a></li>
+                        <li>
+                            <a href="home.php">Home</a>
+                        </li>
+
+                        <li>
+                            <a href="about-us.php">About Us</a>
+                        </li>
+
+                        <li>
+                            <a href="category.php">Category</a>
+                        </li>
+
+                        <li>
+                            <a href="search.php">Search</a>
+                        </li>
+
+                        <li>
+                            <a href="logout.php" class="ticker-btn">Logout</a>
+                        </li>
                     </ul>
                 </nav>
 
@@ -78,7 +142,7 @@ if (!$job) {
                     <h1 class="text-white">Detail Lowongan</h1>
 
                     <p class="text-white link-nav">
-                        <a href="index.php">Home</a>
+                        <a href="home.php">Home</a>
                         <span class="lnr lnr-arrow-right"></span>
                         <a href="search.php">Daftar Lowongan</a>
                         <span class="lnr lnr-arrow-right"></span>
@@ -104,7 +168,9 @@ if (!$job) {
                         <div class="d-flex flex-row align-items-start">
 
                             <div class="thumb">
-                                <img src="img/post.png" alt="Lowongan Pekerjaan">
+                                <div style="width: 80px; height: 80px; background-color: #f4f5f8; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fa <?php echo getCategoryIcon($job['kategori']); ?>" style="font-size: 32px; color: #49e4fa;"></i>
+                                </div>
                             </div>
 
                             <div class="details ml-4">
@@ -266,7 +332,3 @@ if (!$job) {
 
 </body>
 </html>
-
-<?php
-mysqli_stmt_close($stmt);
-?>
