@@ -24,7 +24,7 @@ if (isset($_POST['login'])) {
         $_SESSION['nama'] = $data['nama'];
 
         // Redirect ke halaman utama JobListing
-        header("Location: index.php");
+        header("Location: search.php");
         exit;
 
     } else {

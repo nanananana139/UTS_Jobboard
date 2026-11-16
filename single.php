@@ -246,15 +246,19 @@ if (!$job) {
 
                     </div>
 
-                    <!-- Tombol Kembali -->
-                    <div class="mt-4">
-                        <a href="search.php" class="primary-btn">
-                            Kembali ke Daftar Lowongan
-                        </a>
-                    </div>
+                   <!-- Tombol Apply dan Kembali -->
+<div class="mt-4">
 
-                </div>
+    <a href="apply.php?id=<?= (int)$job['id'] ?>"
+       class="primary-btn">
+        Apply Now
+    </a>
 
+    <a href="search.php" class="primary-btn">
+        Kembali ke Daftar Lowongan
+    </a>
+
+</div>
                 <!-- Sidebar -->
                 <div class="col-lg-4 sidebar">
 
