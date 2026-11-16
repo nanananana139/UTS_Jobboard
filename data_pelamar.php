@@ -12,10 +12,17 @@ $cek_tabel = mysqli_query($conn, "SHOW TABLES LIKE 'lamaran'");
 $query = false;
 if ($cek_tabel && mysqli_num_rows($cek_tabel) > 0) {
     $query = mysqli_query($conn, "
-        SELECT lamaran.*, jobs.judul_posisi, jobs.nama_perusahaan 
+        SELECT 
+            lamaran.*, 
+            users.nama AS nama_pelamar, 
+            users.email, 
+            users.no_hp, 
+            jobs.judul_posisi, 
+            jobs.nama_perusahaan 
         FROM lamaran 
-        JOIN jobs ON lamaran.job_id = jobs.id 
-        ORDER BY lamaran.id DESC
+        LEFT JOIN users ON lamaran.id_user = users.id 
+        LEFT JOIN jobs ON lamaran.id_job = jobs.id 
+        ORDER BY lamaran.id_lamaran DESC
     ");
 }
 ?>
@@ -112,11 +119,11 @@ if ($cek_tabel && mysqli_num_rows($cek_tabel) > 0) {
                                 <?php $no = 1; while ($row = mysqli_fetch_assoc($query)): ?>
                                 <tr>
                                     <td><?= $no++ ?></td>
-                                    <td><strong><?= htmlspecialchars($row['nama_pelamar']) ?></strong></td>
-                                    <td><?= htmlspecialchars($row['email']) ?></td>
-                                    <td><?= htmlspecialchars($row['no_hp']) ?></td>
-                                    <td><?= htmlspecialchars($row['judul_posisi']) ?></td>
-                                    <td><?= htmlspecialchars($row['nama_perusahaan']) ?></td>
+                                    <td><strong><?= htmlspecialchars($row['nama_pelamar'] ?? '-') ?></strong></td>
+                                    <td><?= htmlspecialchars($row['email'] ?? '-') ?></td>
+                                    <td><?= htmlspecialchars($row['no_hp'] ?? '-') ?></td>
+                                    <td><?= htmlspecialchars($row['judul_posisi'] ?? '-') ?></td>
+                                    <td><?= htmlspecialchars($row['nama_perusahaan'] ?? '-') ?></td>
                                     <td>
                                         <?php if (!empty($row['cv'])): ?>
                                             <a href="uploads/<?= htmlspecialchars($row['cv']) ?>" target="_blank" class="btn btn-info btn-sm">Lihat CV</a>
