@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2026 at 01:15 PM
+-- Generation Time: Nov 16, 2026 at 06:24 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -113,6 +113,28 @@ INSERT INTO `jobs` (`id`, `judul_posisi`, `nama_perusahaan`, `deskripsi`, `persy
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `lamaran`
+--
+
+CREATE TABLE `lamaran` (
+  `id_lamaran` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_job` int(11) NOT NULL,
+  `status` enum('Menunggu','Diproses','Diterima','Ditolak') DEFAULT 'Menunggu',
+  `tanggal_lamar` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `lamaran`
+--
+
+INSERT INTO `lamaran` (`id_lamaran`, `id_user`, `id_job`, `status`, `tanggal_lamar`) VALUES
+(1, 1, 27, 'Menunggu', '2026-11-15 21:47:29'),
+(2, 3, 28, 'Menunggu', '2026-11-16 16:40:21');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -152,6 +174,13 @@ ALTER TABLE `jobs`
   ADD KEY `fk_jobs_categories` (`category_id`);
 
 --
+-- Indexes for table `lamaran`
+--
+ALTER TABLE `lamaran`
+  ADD PRIMARY KEY (`id_lamaran`),
+  ADD UNIQUE KEY `unik_lamaran` (`id_user`,`id_job`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -166,13 +195,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT for table `lamaran`
+--
+ALTER TABLE `lamaran`
+  MODIFY `id_lamaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`

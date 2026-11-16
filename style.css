@@ -169,3 +169,39 @@
   backdrop-filter: blur(8px);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+.btn-apply,
+.btn-back {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 2px solid #7c69ef;
+    transition: all 0.3s ease;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+/* Tombol utama: ungu penuh */
+.btn-apply {
+    background-color: #7c69ef;
+    color: #fff;
+}
+.btn-apply:hover {
+    background-color: #6a57d9;
+    border-color: #6a57d9;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(124, 105, 239, 0.4);
+}
+
+/* Tombol kedua: outline ungu */
+.btn-back {
+    background-color: #fff;
+    color: #7c69ef;
+}
+.btn-back:hover {
+    background-color: #7c69ef;
+    color: #fff;
+}

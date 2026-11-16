@@ -247,18 +247,19 @@ if (!$job) {
                     </div>
 
                    <!-- Tombol Apply dan Kembali -->
-<div class="mt-4">
+                    <div class="mt-4">
 
-    <a href="apply.php?id=<?= (int)$job['id'] ?>"
-       class="primary-btn">
-        Apply Now
-    </a>
+                        <a href="apply.php?id=<?= (int)$job['id'] ?>"
+                        class="primary-btn" style="display:inline-block; padding:12px 28px; background:#7c69ef; color:#fff !important; border:2px solid #7c69ef; border-radius:8px; font-weight:600; font-size:14px; text-transform:uppercase; text-decoration:none; margin:0 10px 10px 0;">
+                            Apply Now
+                        </a>
 
-    <a href="search.php" class="primary-btn">
-        Kembali ke Daftar Lowongan
-    </a>
+                        <a href="search.php" class="primary-btn"
+                            style="display:inline-block; padding:12px 28px; background:#fff; color:#7c69ef !important; border:2px solid #7c69ef; border-radius:8px; font-weight:600; font-size:14px; text-transform:uppercase; text-decoration:none; margin:0 10px 10px 0;">>
+                            Kembali ke Daftar Lowongan
+                        </a>
 
-</div>
+                    </div>
                 <!-- Sidebar -->
                 <div class="col-lg-4 sidebar">
 
